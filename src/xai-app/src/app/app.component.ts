@@ -1,10 +1,10 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  selector: "app-root",
+  template: `
+    <button color="primary" mat-stroked-button>Upload Model</button>
+  `,
+  styleUrls: ["./app.component.scss"],
 })
-export class AppComponent {
-  title = 'xai-app';
-}
+export class AppComponent {}
