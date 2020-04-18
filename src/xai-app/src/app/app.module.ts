@@ -11,6 +11,8 @@ import { LocalComponent } from './local.component';
 import { CommonModule } from '@angular/common';
 import { ModelLoadedGuard } from './model-loaded.guard';
 import { AgGridModule } from 'ag-grid-angular';
+import { DataGridComponent } from './data-grid.component';
+import { LimeComponent } from './lime.component';
 
 const routes: Routes = [
   {
@@ -26,7 +28,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LocalComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    LocalComponent,
+    DataGridComponent,
+    LimeComponent,
+  ],
   imports: [
     CommonModule,
     BrowserModule,
