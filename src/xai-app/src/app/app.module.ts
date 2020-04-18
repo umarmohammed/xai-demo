@@ -9,11 +9,19 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home.component';
 import { LocalComponent } from './local.component';
 import { CommonModule } from '@angular/common';
+import { ModelLoadedGuard } from './model-loaded.guard';
 
 const routes: Routes = [
+  {
+    path: '',
+    children: [
+      { path: 'local', component: LocalComponent },
+      { path: '', redirectTo: 'local', pathMatch: 'full' },
+    ],
+    canActivateChild: [ModelLoadedGuard],
+  },
   { path: 'home', component: HomeComponent },
-  { path: 'local', component: LocalComponent },
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '**', component: HomeComponent },
 ];
 
 @NgModule({
