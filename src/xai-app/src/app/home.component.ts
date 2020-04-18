@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
       type="file"
       #fileInput
       type="file"
-      (change)="this.fileUploaded(fileInput.files[0])"
+      (change)="fileUploaded(fileInput.files[0])"
     />`,
   styleUrls: ['home.component.scss'],
 })
@@ -24,7 +24,7 @@ export class HomeComponent {
   constructor(private model: ModelService, private router: Router) {}
 
   fileUploaded(file: File) {
-    this.model.upload(file);
+    this.model.loadModel(file);
     this.router.navigate(['local']);
   }
 }
