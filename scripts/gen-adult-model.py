@@ -9,7 +9,7 @@ from joblib import dump, load
 def build_model():
     feature_names = ["Age", "Workclass", "fnlwgt", "Education", "Education-Num", "Marital Status",
                      "Occupation", "Relationship", "Race", "Sex", "Capital Gain", "Capital Loss", "Hours per week", "Country"]
-    data = np.genfromtxt("C:/dev/xai-demo/datasets/adult.data",
+    data = np.genfromtxt("../datasets/adult.data",
                          delimiter=', ', dtype=str)
 
     labels = data[:, 14]
