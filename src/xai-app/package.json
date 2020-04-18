@@ -21,6 +21,7 @@
     "@angular/platform-browser": "~9.0.0",
     "@angular/platform-browser-dynamic": "~9.0.0",
     "@angular/router": "~9.0.0",
+    "@swimlane/ngx-charts": "^14.0.0",
     "ag-grid-angular": "^23.0.3",
     "ag-grid-community": "^23.0.2",
     "rxjs": "~6.5.4",

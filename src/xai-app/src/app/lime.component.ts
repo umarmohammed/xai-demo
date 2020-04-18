@@ -3,7 +3,8 @@ import { LimeService } from './lime.service';
 
 @Component({
   selector: 'xai-lime',
-  template: `{{ limeService.lime$ | async | json }}`,
+  template: `<ngx-charts-bar-horizontal [results]="limeService.lime$ | async">
+  </ngx-charts-bar-horizontal>`,
 })
 export class LimeComponent {
   constructor(public limeService: LimeService) {}
