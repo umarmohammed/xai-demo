@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { ModelService } from './model.service';
+import { DataService } from './data.service';
 
 @Component({
   selector: 'xai-local',
   template: `
-    <ul *ngIf="model$ | async as model">
+    <ul *ngIf="data$ | async as model">
       <li *ngFor="let item of model.items">
         {{ item | json }}
       </li>
@@ -12,7 +12,7 @@ import { ModelService } from './model.service';
   `,
 })
 export class LocalComponent {
-  model$ = this.modelService.model$;
+  data$ = this.dataService.data$;
 
-  constructor(public modelService: ModelService) {}
+  constructor(private dataService: DataService) {}
 }
