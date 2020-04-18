@@ -1,18 +1,21 @@
 import { Component } from '@angular/core';
-import { DataService } from './data.service';
+import { LocalService } from './local.service';
 
 @Component({
   selector: 'xai-local',
   template: `
-    <ul *ngIf="data$ | async as model">
-      <li *ngFor="let item of model.items">
-        {{ item | json }}
-      </li>
-    </ul>
+    <ag-grid-angular
+      *ngIf="grid$ | async as grid"
+      style="width: 100%; height: 100%;"
+      class="ag-theme-alpine"
+      [rowData]="grid.rowData"
+      [columnDefs]="grid.columnDefs"
+    >
+    </ag-grid-angular>
   `,
 })
 export class LocalComponent {
-  data$ = this.dataService.data$;
+  grid$ = this.local.grid$;
 
-  constructor(private dataService: DataService) {}
+  constructor(private local: LocalService) {}
 }

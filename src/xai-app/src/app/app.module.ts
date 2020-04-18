@@ -10,6 +10,7 @@ import { HomeComponent } from './home.component';
 import { LocalComponent } from './local.component';
 import { CommonModule } from '@angular/common';
 import { ModelLoadedGuard } from './model-loaded.guard';
+import { AgGridModule } from 'ag-grid-angular';
 
 const routes: Routes = [
   {
@@ -33,6 +34,7 @@ const routes: Routes = [
     MatButtonModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
+    AgGridModule.withComponents([]),
   ],
   providers: [],
   bootstrap: [AppComponent],

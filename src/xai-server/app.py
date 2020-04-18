@@ -25,7 +25,7 @@ def trainToDictArray(train, feature_names):
 def upload_model():
     # this would usually persist
     file = request.files['file']
-    gbtree, encoder, train, test, feature_names, class_names, categorical_features, categorical_names = load(
+    model, train, test, feature_names, class_names, categorical_features, test_display, feature_names_display = load(
         file.stream)
 
-    return jsonify(dict(items=trainToDictArray(test.tolist(), feature_names)))
+    return jsonify(dict(items=trainToDictArray(test_display.values.tolist(), feature_names_display), featureNames=feature_names_display))
