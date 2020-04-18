@@ -11,7 +11,7 @@ import { createChartResult } from './single-chart-result';
 export class LimeService {
   private url = (id: string) => `http://localhost:5000/api/lime/${id}`;
 
-  lime$ = this.gridService.selectedRowId$.pipe(
+  results$ = this.gridService.selectedRowId$.pipe(
     filter((id) => !!id),
     withLatestFrom(this.modelService.model$),
     switchMap(([id, model]) =>
