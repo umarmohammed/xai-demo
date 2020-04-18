@@ -13,6 +13,7 @@ import { ModelLoadedGuard } from './model-loaded.guard';
 import { AgGridModule } from 'ag-grid-angular';
 import { DataGridComponent } from './data-grid.component';
 import { LimeComponent } from './lime.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 const routes: Routes = [
   {
@@ -43,6 +44,7 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes),
     AgGridModule.withComponents([]),
+    NgxChartsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
