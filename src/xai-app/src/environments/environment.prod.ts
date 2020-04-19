@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  baseUrl: 'http://umarmohammed.io:8083/',
+  baseUrl: 'https://xai.umarmohammed.io/',
 };
