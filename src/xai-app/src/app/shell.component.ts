@@ -2,14 +2,19 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'xai-shell',
-  template: `<mat-toolbar>
+  template: `
+    <mat-toolbar>
       <mat-toolbar-row>
         <span>XAI Demo</span>
       </mat-toolbar-row>
     </mat-toolbar>
-    <div>
-      <router-outlet></router-outlet>
-    </div>`,
+    <mat-drawer-container>
+      <mat-drawer mode="side" opened>Drawer content</mat-drawer>
+      <mat-drawer-content>
+        <router-outlet></router-outlet>
+      </mat-drawer-content>
+    </mat-drawer-container>
+  `,
   styles: [
     `
       :host {
