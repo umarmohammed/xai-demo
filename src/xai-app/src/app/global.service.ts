@@ -5,8 +5,9 @@ import { switchMap, map, filter } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class GlobalService {
-  private infoUrl = 'http://localhost:5000/api/global/feature-info';
-  private importanceUrl = 'http://localhost:5000/api/global/feature-importance';
+  private infoUrl = 'http://umarmohammed.io:8083/api/global/feature-info';
+  private importanceUrl =
+    'http://umarmohammed.io:8083/api/global/feature-importance';
 
   globalInfo$ = this.modelService.model$.pipe(
     switchMap((model) => this.http.post(this.infoUrl, model))

@@ -62,7 +62,6 @@ def explain(idx, model, train, test, feature_names, class_names, categorical_fea
         feature_names=feature_names,
         categorical_features=categorical_features)
 
-    # We take one true positive and one false positive for examples.
     exp = ucihd_rf_explainer.explain_instance(
         test.iloc[idx], model.predict_proba, num_features=4)
 
@@ -82,6 +81,7 @@ def lime(id):
 
     return jsonify(explain(int(id), model, train, test, feature_names, class_names, categorical_features))
 
+
 @app.route("/api/global/feature-info", methods=["Post"])
 def globalInfo():
     file = request.files['file']
@@ -92,10 +92,10 @@ def globalInfo():
 
     return jsonify(exp.selector.to_dict('records'))
 
+
 @app.route("/api/global/feature-importance", methods=["POST"])
 def globalImportance():
     file = request.files['file']
     model = load(file.stream)[-1]
     exp = model.explain_global()
     return exp.visualize().to_json()
-
