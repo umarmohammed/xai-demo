@@ -5,12 +5,13 @@ import { withLatestFrom, switchMap, filter, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { createChartResult } from './single-chart-result';
 import { LimeResponse } from './lime-response';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LimeService {
-  private url = (id: string) => `http://umarmohammed.io:8083/api/lime/${id}`;
+  private url = (id: string) => `${environment.baseUrl}api/lime/${id}`;
 
   results$ = this.gridService.selectedRowId$.pipe(
     filter((id) => !!id),
