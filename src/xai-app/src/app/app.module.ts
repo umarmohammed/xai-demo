@@ -19,6 +19,7 @@ import { LimeProbabilitiesComponent } from './lime-probabilities.component';
 import { ShellComponent } from './shell.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatIconModule } from '@angular/material/icon';
 
 const routes: Routes = [
   {
@@ -56,6 +57,7 @@ const routes: Routes = [
     NgxChartsModule,
     MatToolbarModule,
     MatSidenavModule,
+    MatIconModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

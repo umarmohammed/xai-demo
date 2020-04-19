@@ -5,15 +5,18 @@ import { Component } from '@angular/core';
   template: `
     <mat-toolbar>
       <mat-toolbar-row>
+        <button mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon>menu</mat-icon>
+        </button>
         <span>XAI Demo</span>
       </mat-toolbar-row>
     </mat-toolbar>
-    <mat-drawer-container>
-      <mat-drawer mode="side" opened>Drawer content</mat-drawer>
-      <mat-drawer-content>
+    <mat-sidenav-container>
+      <mat-sidenav #sidenav mode="side" opened>Drawer content</mat-sidenav>
+      <mat-sidenav-content>
         <router-outlet></router-outlet>
-      </mat-drawer-content>
-    </mat-drawer-container>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
   `,
   styles: [
     `
