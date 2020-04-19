@@ -12,7 +12,7 @@ import { GlobalService } from './global.service';
   ></ag-grid-angular>`,
 })
 export class GlobalFeatureInfoComponent {
-  global$ = this.globalService.global$;
+  global$ = this.globalService.globalInfo$;
 
   columnDefs = [
     { field: 'Name' },

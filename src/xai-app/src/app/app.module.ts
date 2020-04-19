@@ -25,6 +25,7 @@ import { LimeFeatureValuesComponent } from './lime-feature-values.component';
 import { GlobalComponent } from './global.component';
 import { GlobalFeatureInfoComponent } from './global-feature-info.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { GlobalFeatureImportanceComponent } from './global-feature-importance.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,10 @@ const routes: Routes = [
         component: GlobalComponent,
         children: [
           { path: 'feature-info', component: GlobalFeatureInfoComponent },
+          {
+            path: 'feature-importance',
+            component: GlobalFeatureImportanceComponent,
+          },
           { path: '', redirectTo: 'feature-info', pathMatch: 'full' },
         ],
       },
@@ -61,6 +66,7 @@ const routes: Routes = [
     LimeFeatureValuesComponent,
     GlobalComponent,
     GlobalFeatureInfoComponent,
+    GlobalFeatureImportanceComponent,
   ],
   imports: [
     CommonModule,

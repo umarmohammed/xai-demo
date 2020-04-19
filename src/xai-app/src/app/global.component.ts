@@ -13,6 +13,15 @@ import { GlobalService } from './global.service';
       >
         Feature Info
       </a>
+      <a
+        mat-tab-link
+        routerLink="feature-importance"
+        routerLinkActive
+        #rla="routerLinkActive"
+        [active]="rla.isActive"
+      >
+        Feature Importance
+      </a>
     </nav>
     <div>
       <router-outlet></router-outlet>
