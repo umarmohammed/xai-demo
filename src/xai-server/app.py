@@ -82,8 +82,8 @@ def lime(id):
 
     return jsonify(explain(int(id), model, train, test, feature_names, class_names, categorical_features))
 
-@app.route("/api/global/selector", methods=["Post"])
-def globalSelector():
+@app.route("/api/global/feature-info", methods=["Post"])
+def globalInfo():
     file = request.files['file']
 
     model = load(file.stream)[-1]
@@ -91,3 +91,11 @@ def globalSelector():
     exp = model.explain_global()
 
     return jsonify(exp.selector.to_dict('records'))
+
+@app.route("/api/global/feature-importance", methods=["POST"])
+def globalImportance():
+    file = request.files['file']
+    model = load(file.stream)[-1]
+    exp = model.explain_global()
+    return exp.visualize().to_json()
+

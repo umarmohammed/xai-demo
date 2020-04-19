@@ -1,14 +1,24 @@
 import { Injectable } from '@angular/core';
 import { ModelService } from './model.service';
 import { HttpClient } from '@angular/common/http';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, map, filter } from 'rxjs/operators';
 
 @Injectable({ providedIn: 'root' })
 export class GlobalService {
-  private url = 'http://localhost:5000/api/global/selector';
+  private infoUrl = 'http://localhost:5000/api/global/feature-info';
+  private importanceUrl = 'http://localhost:5000/api/global/feature-importance';
 
-  global$ = this.modelService.model$.pipe(
-    switchMap((model) => this.http.post(this.url, model))
+  globalInfo$ = this.modelService.model$.pipe(
+    switchMap((model) => this.http.post(this.infoUrl, model))
+  );
+
+  globalImportance$ = this.modelService.model$.pipe(
+    switchMap((model) => this.http.post<any>(this.importanceUrl, model)),
+    filter((res) => res && res.data[0]),
+    map((res) => res.data[0]),
+    map((data) =>
+      data.x.map((value: any, i: number) => ({ value, name: data.y[i] }))
+    )
   );
 
   constructor(private modelService: ModelService, private http: HttpClient) {}
