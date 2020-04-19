@@ -18,6 +18,7 @@ import { LimeChartComponent } from './lime.chart.component';
 import { LimeProbabilitiesComponent } from './lime-probabilities.component';
 import { ShellComponent } from './shell.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 const routes: Routes = [
   {
@@ -54,6 +55,7 @@ const routes: Routes = [
     AgGridModule.withComponents([]),
     NgxChartsModule,
     MatToolbarModule,
+    MatSidenavModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
