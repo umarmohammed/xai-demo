@@ -40,6 +40,22 @@ def getPredictProbabilities(probArray, class_names):
     return predictProbabilites
 
 
+def getFeatures(exp):
+    features = []
+    for pair in exp:
+        features.append(pair[0])
+    return features
+
+
+def getFeatureValues(dataPoint, exp, expMap):
+    feature_values = []
+    features = getFeatures(exp)
+    for i in range(len(features)):
+        feature_values.append(
+            {"feature": features[i], "value": dataPoint[expMap[i][0]]})
+    return feature_values
+
+
 def explain(idx, model, train, test, feature_names, class_names, categorical_features):
     ucihd_rf_explainer = LimeTabularExplainer(
         train, class_names=class_names,
@@ -54,7 +70,7 @@ def explain(idx, model, train, test, feature_names, class_names, categorical_fea
         test.iloc[idx].values.reshape(1, -1)).flatten().tolist()
 
     print(class_names)
-    return dict(exp=exp.as_list(), predictProbabilities=getPredictProbabilities(probArray, class_names))
+    return dict(exp=exp.as_list(), predictProbabilities=getPredictProbabilities(probArray, class_names), featureValues=getFeatureValues(test.iloc[idx], exp.as_list(), exp.as_map()[1]))
 
 
 @app.route("/api/lime/<id>", methods=["Post"])

@@ -10,6 +10,9 @@ import { SingleChartResult } from './single-chart-result';
         [results]="results.predictProbabilities"
       ></xai-lime-probabilities>
       <xai-lime-chart [results]="results.exp"></xai-lime-chart>
+      <xai-lime-feature-values
+        [featureValues]="results.featureValues"
+      ></xai-lime-feature-values>
     </ng-container>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,7 +20,7 @@ import { SingleChartResult } from './single-chart-result';
     `
       :host {
         display: grid;
-        grid-template-columns: 30% 70%;
+        grid-template-columns: 300px 1fr 300px;
         height: 100%;
       }
     `,
