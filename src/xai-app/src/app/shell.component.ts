@@ -12,7 +12,13 @@ import { Component } from '@angular/core';
       </mat-toolbar-row>
     </mat-toolbar>
     <mat-sidenav-container>
-      <mat-sidenav #sidenav mode="side" opened>Drawer content</mat-sidenav>
+      <mat-sidenav #sidenav mode="side" opened>
+        <mat-nav-list>
+          <a mat-list-item routerLink="/local" routerLinkActive="active"
+            >Local</a
+          >
+        </mat-nav-list>
+      </mat-sidenav>
       <mat-sidenav-content>
         <router-outlet></router-outlet>
       </mat-sidenav-content>
@@ -24,6 +30,14 @@ import { Component } from '@angular/core';
         display: grid;
         grid-template-rows: 64px 1fr;
         height: 100%;
+      }
+
+      .active {
+        background: #f5f5f5;
+      }
+
+      mat-sidenav {
+        width: 200px;
       }
     `,
   ],

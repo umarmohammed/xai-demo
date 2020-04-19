@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { SingleChartResult } from './single-chart-result';
 
 @Component({
@@ -18,6 +18,7 @@ import { SingleChartResult } from './single-chart-result';
       </ngx-charts-bar-horizontal>
     </div>
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [
     `
       .container {
