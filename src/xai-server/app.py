@@ -32,9 +32,17 @@ def upload_model():
     return jsonify(dict(items=trainToDictArray(test_display.values.tolist(), feature_names_display), featureNames=feature_names_display))
 
 
+def getPredictProbabilities(probArray, class_names):
+    predictProbabilites = []
+    for i in range(len(class_names)):
+        predictProbabilites.append(
+            {"name": class_names[i], "value": probArray[i]})
+    return predictProbabilites
+
+
 def explain(idx, model, train, test, feature_names, class_names, categorical_features):
     ucihd_rf_explainer = LimeTabularExplainer(
-        train, class_names=["Negative", "Positive"],
+        train, class_names=class_names,
         feature_names=feature_names,
         categorical_features=categorical_features)
 
@@ -42,7 +50,11 @@ def explain(idx, model, train, test, feature_names, class_names, categorical_fea
     exp = ucihd_rf_explainer.explain_instance(
         test.iloc[idx], model.predict_proba, num_features=4)
 
-    return exp.as_list()
+    probArray = model.predict_proba(
+        test.iloc[idx].values.reshape(1, -1)).flatten().tolist()
+
+    print(class_names)
+    return dict(exp=exp.as_list(), predictProbabilities=getPredictProbabilities(probArray, class_names))
 
 
 @app.route("/api/lime/<id>", methods=["Post"])

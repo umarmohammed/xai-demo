@@ -4,6 +4,7 @@ import { ModelService } from './model.service';
 import { withLatestFrom, switchMap, filter, map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { createChartResult } from './single-chart-result';
+import { LimeResponse } from './lime-response';
 
 @Injectable({
   providedIn: 'root',
@@ -16,8 +17,8 @@ export class LimeService {
     withLatestFrom(this.modelService.model$),
     switchMap(([id, model]) =>
       this.http
-        .post<[[string, number]]>(this.url(id), model)
-        .pipe(map((res) => res.map(createChartResult)))
+        .post<LimeResponse>(this.url(id), model)
+        .pipe(map((res) => ({ ...res, exp: res.exp.map(createChartResult) })))
     )
   );
 

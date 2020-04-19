@@ -14,6 +14,8 @@ import { AgGridModule } from 'ag-grid-angular';
 import { DataGridComponent } from './data-grid.component';
 import { LimeComponent } from './lime.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { LimeChartComponent } from './lime.chart.component';
+import { LimeProbabilitiesComponent } from './lime-probabilities.component';
 
 const routes: Routes = [
   {
@@ -35,6 +37,8 @@ const routes: Routes = [
     LocalComponent,
     DataGridComponent,
     LimeComponent,
+    LimeChartComponent,
+    LimeProbabilitiesComponent,
   ],
   imports: [
     CommonModule,

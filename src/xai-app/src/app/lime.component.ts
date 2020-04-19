@@ -4,23 +4,25 @@ import { SingleChartResult } from './single-chart-result';
 
 @Component({
   selector: 'xai-lime',
-  template: `<ngx-charts-bar-horizontal
-    *ngIf="limeService.results$ | async as results"
-    [results]="results"
-    [xScaleMax]="1"
-    [xScaleMin]="-1"
-    [xAxis]="true"
-    [yAxis]="true"
-    [customColors]="customColor(results)"
-    [trimYAxisTicks]="false"
-    [showDataLabel]="true"
-  >
-  </ngx-charts-bar-horizontal>`,
+  template: `
+    <ng-container *ngIf="limeService.results$ | async as results">
+      <xai-lime-probabilities
+        [results]="results.predictProbabilities"
+      ></xai-lime-probabilities>
+      <xai-lime-chart [results]="results.exp"></xai-lime-chart>
+    </ng-container>
+  `,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  styles: [
+    `
+      :host {
+        display: grid;
+        grid-template-columns: 30% 70%;
+        height: 100%;
+      }
+    `,
+  ],
 })
 export class LimeComponent {
   constructor(public limeService: LimeService) {}
-
-  customColor = (results: SingleChartResult[]) => (name: string) =>
-    results.find((r) => r.name === name).value > 0 ? '#ff7f0e' : '#1f77b4';
 }
