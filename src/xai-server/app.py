@@ -26,7 +26,7 @@ def trainToDictArray(train, feature_names):
 def upload_model():
     # this would usually persist
     file = request.files['file']
-    _, _, _, _, _, _, test_display, feature_names_display = load(
+    _, _, _, _, _, _, test_display, feature_names_display, _ = load(
         file.stream)
 
     return jsonify(dict(items=trainToDictArray(test_display.values.tolist(), feature_names_display), featureNames=feature_names_display))
@@ -77,7 +77,17 @@ def explain(idx, model, train, test, feature_names, class_names, categorical_fea
 def lime(id):
     file = request.files['file']
 
-    model, train, test, feature_names, class_names, categorical_features, _, _ = load(
+    model, train, test, feature_names, class_names, categorical_features, _, _, _ = load(
         file.stream)
 
     return jsonify(explain(int(id), model, train, test, feature_names, class_names, categorical_features))
+
+@app.route("/api/global/selector", methods=["Post"])
+def globalSelector():
+    file = request.files['file']
+
+    model = load(file.stream)[-1]
+
+    exp = model.explain_global()
+
+    return jsonify(exp.selector.to_dict('records'))
