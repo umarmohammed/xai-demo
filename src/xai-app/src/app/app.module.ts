@@ -21,7 +21,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { LimeFeatureValues } from './lime-feature-values.component';
+import { LimeFeatureValuesComponent } from './lime-feature-values.component';
+import { GlobalComponent } from './global.component';
 
 const routes: Routes = [
   {
@@ -29,6 +30,7 @@ const routes: Routes = [
     component: ShellComponent,
     children: [
       { path: 'local', component: LocalComponent },
+      { path: 'global', component: GlobalComponent },
       { path: '', redirectTo: 'local', pathMatch: 'full' },
     ],
     canActivateChild: [ModelLoadedGuard],
@@ -47,7 +49,8 @@ const routes: Routes = [
     LimeChartComponent,
     LimeProbabilitiesComponent,
     ShellComponent,
-    LimeFeatureValues,
+    LimeFeatureValuesComponent,
+    GlobalComponent,
   ],
   imports: [
     CommonModule,
