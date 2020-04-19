@@ -17,6 +17,9 @@ import { Component } from '@angular/core';
           <a mat-list-item routerLink="/local" routerLinkActive="active"
             >Local</a
           >
+          <a mat-list-item routerLink="/global" routerLinkActive="active"
+            >Global</a
+          >
         </mat-nav-list>
       </mat-sidenav>
       <mat-sidenav-content>

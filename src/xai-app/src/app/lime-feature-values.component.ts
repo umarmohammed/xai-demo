@@ -13,7 +13,7 @@ import { FeatureValue } from './lime-response';
     ></ag-grid-angular>
   `,
 })
-export class LimeFeatureValues {
+export class LimeFeatureValuesComponent {
   @Input() featureValues: FeatureValue[];
 
   columnDefs = [{ field: 'feature' }, { field: 'value' }];
