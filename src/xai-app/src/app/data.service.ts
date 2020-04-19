@@ -6,7 +6,7 @@ import { ModelData } from './model-data';
 
 @Injectable({ providedIn: 'root' })
 export class DataService {
-  private uploadUrl = 'http://localhost:5000/api/upload';
+  private uploadUrl = 'http://umarmohammed.io:8083/api/upload';
 
   data$ = this.modelService.model$.pipe(
     switchMap((model) => this.http.post<ModelData>(this.uploadUrl, model))

@@ -10,7 +10,7 @@ import { LimeResponse } from './lime-response';
   providedIn: 'root',
 })
 export class LimeService {
-  private url = (id: string) => `http://localhost:5000/api/lime/${id}`;
+  private url = (id: string) => `http://umarmohammed.io:8083/api/lime/${id}`;
 
   results$ = this.gridService.selectedRowId$.pipe(
     filter((id) => !!id),
