@@ -5,11 +5,11 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from joblib import dump, load
-
+from interpret.glassbox import ExplainableBoostingClassifier
 
 def build_model():
 
-     ucihd_attr = [
+    ucihd_attr = [
         "age",
         "sex",      # 0 = female 1 = male
         "cp",       # chest pain type 1: typical angina 2: atypical angina 3: non-anginal pain 4: asymptomatic
@@ -64,7 +64,11 @@ def build_model():
         i for i, col in enumerate(feature_names) if "_" in col]
     feature_names_display = ucihd_attr
 
-    return (ucihd_rf, train.values, test, feature_names, class_names, caterogical_features, test_display, feature_names_display)
+    ucihd_ebm = ExplainableBoostingClassifier(
+        n_estimators=16, feature_names=ucihd_2.columns, n_jobs=1)
+    _ = ucihd_ebm.fit(train, ucihd_y_train)
+
+    return (ucihd_rf, train.values, test, feature_names, class_names, caterogical_features, test_display, feature_names_display, ucihd_ebm)
 
 
 if __name__ == "__main__":
