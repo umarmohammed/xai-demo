@@ -16,10 +16,13 @@ import { LimeComponent } from './lime.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { LimeChartComponent } from './lime.chart.component';
 import { LimeProbabilitiesComponent } from './lime-probabilities.component';
+import { ShellComponent } from './shell.component';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 const routes: Routes = [
   {
     path: '',
+    component: ShellComponent,
     children: [
       { path: 'local', component: LocalComponent },
       { path: '', redirectTo: 'local', pathMatch: 'full' },
@@ -39,6 +42,7 @@ const routes: Routes = [
     LimeComponent,
     LimeChartComponent,
     LimeProbabilitiesComponent,
+    ShellComponent,
   ],
   imports: [
     CommonModule,
@@ -49,6 +53,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     AgGridModule.withComponents([]),
     NgxChartsModule,
+    MatToolbarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
