@@ -3,27 +3,28 @@ import { GlobalService } from './global.service';
 
 @Component({
   selector: 'xai-global',
-  template: ` <ag-grid-angular
-    style="width: 100%; height: 100%"
-    class="ag-theme-alpine"
-    [rowData]="global$ | async"
-    [columnDefs]="columnDefs"
-    (firstDataRendered)="onFirstDataRendered($event)"
-  ></ag-grid-angular>`,
+  template: `<nav mat-tab-nav-bar>
+      <a
+        mat-tab-link
+        routerLink="feature-info"
+        routerLinkActive
+        #rla="routerLinkActive"
+        [active]="rla.isActive"
+      >
+        Feature Info
+      </a>
+    </nav>
+    <div>
+      <router-outlet></router-outlet>
+    </div> `,
+  styles: [
+    `
+      :host {
+        display: grid;
+        grid-template-rows: 48px 1fr;
+        height: 100%;
+      }
+    `,
+  ],
 })
-export class GlobalComponent {
-  global$ = this.globalService.global$;
-
-  columnDefs = [
-    { field: 'Name' },
-    { field: 'Type' },
-    { field: '# Unique' },
-    { field: '% Non-zero' },
-  ];
-
-  constructor(private globalService: GlobalService) {}
-
-  onFirstDataRendered(params: any) {
-    params.api.sizeColumnsToFit();
-  }
-}
+export class GlobalComponent {}

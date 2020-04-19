@@ -23,6 +23,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { LimeFeatureValuesComponent } from './lime-feature-values.component';
 import { GlobalComponent } from './global.component';
+import { GlobalFeatureInfoComponent } from './global-feature-info.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 const routes: Routes = [
   {
@@ -30,7 +32,14 @@ const routes: Routes = [
     component: ShellComponent,
     children: [
       { path: 'local', component: LocalComponent },
-      { path: 'global', component: GlobalComponent },
+      {
+        path: 'global',
+        component: GlobalComponent,
+        children: [
+          { path: 'feature-info', component: GlobalFeatureInfoComponent },
+          { path: '', redirectTo: 'feature-info', pathMatch: 'full' },
+        ],
+      },
       { path: '', redirectTo: 'local', pathMatch: 'full' },
     ],
     canActivateChild: [ModelLoadedGuard],
@@ -51,6 +60,7 @@ const routes: Routes = [
     ShellComponent,
     LimeFeatureValuesComponent,
     GlobalComponent,
+    GlobalFeatureInfoComponent,
   ],
   imports: [
     CommonModule,
@@ -65,6 +75,7 @@ const routes: Routes = [
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    MatTabsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
