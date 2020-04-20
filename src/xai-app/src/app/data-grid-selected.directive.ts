@@ -13,7 +13,6 @@ export class DataGridSelectedDirective implements OnDestroy {
 
   constructor(grid: AgGridAngular) {
     grid.gridReady.pipe(takeUntil(this.destroySubject)).subscribe(() => {
-      console.log(this.selectedRow);
       grid.gridOptions.api.forEachNode((node) =>
         node.rowIndex === this.selectedRow ? node.setSelected(true) : 0
       );
