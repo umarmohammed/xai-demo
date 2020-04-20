@@ -1,5 +1,6 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { DataGridService } from './data-grid.service';
+import { AgGridEvent } from 'ag-grid-community';
 
 @Component({
   selector: 'xai-data-grid',
@@ -12,19 +13,21 @@ import { DataGridService } from './data-grid.service';
     rowSelection="single"
     (selectionChanged)="onSelectionChanged($event)"
     (gridSizeChanged)="onGridSizeChanged($event)"
+    [xaiSelected]="selectedRowId$ | async"
   >
   </ag-grid-angular>`,
 })
 export class DataGridComponent {
   grid$ = this.dataGrid.grid$;
+  selectedRowId$ = this.dataGrid.selectedRowId$;
 
   constructor(private dataGrid: DataGridService) {}
 
-  onSelectionChanged(event: any) {
+  onSelectionChanged(event: AgGridEvent) {
     this.dataGrid.rowSelected(event);
   }
 
-  onGridSizeChanged(params: any) {
+  onGridSizeChanged(params: AgGridEvent) {
     params.api.sizeColumnsToFit();
   }
 }
