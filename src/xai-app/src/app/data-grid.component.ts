@@ -11,6 +11,7 @@ import { DataGridService } from './data-grid.service';
     [columnDefs]="grid.columnDefs"
     rowSelection="single"
     (selectionChanged)="onSelectionChanged($event)"
+    (gridSizeChanged)="onGridSizeChanged($event)"
   >
   </ag-grid-angular>`,
 })
@@ -21,5 +22,9 @@ export class DataGridComponent {
 
   onSelectionChanged(event: any) {
     this.dataGrid.rowSelected(event);
+  }
+
+  onGridSizeChanged(params: any) {
+    params.api.sizeColumnsToFit();
   }
 }
