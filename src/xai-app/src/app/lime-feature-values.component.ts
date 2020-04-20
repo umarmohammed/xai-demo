@@ -5,11 +5,11 @@ import { FeatureValue } from './lime-response';
   selector: 'xai-lime-feature-values',
   template: `
     <ag-grid-angular
-      style="width: 100%; height: 100%"
+      style="width: 100%; height: 100%;"
       class="ag-theme-alpine"
       [rowData]="featureValues"
       [columnDefs]="columnDefs"
-      (firstDataRendered)="onFirstDataRendered($event)"
+      (gridSizeChanged)="onGridSizeChanged($event)"
     ></ag-grid-angular>
   `,
 })
@@ -18,7 +18,7 @@ export class LimeFeatureValuesComponent {
 
   columnDefs = [{ field: 'feature' }, { field: 'value' }];
 
-  onFirstDataRendered(params: any) {
+  onGridSizeChanged(params: any) {
     params.api.sizeColumnsToFit();
   }
 }
