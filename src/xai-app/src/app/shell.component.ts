@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'xai-shell',
   template: `
     <mat-toolbar>
       <mat-toolbar-row>
-        <button mat-icon-button (click)="sidenav.toggle()">
+        <button mat-icon-button (click)="onMenuClicked(sidenav)">
           <mat-icon>menu</mat-icon>
         </button>
         <span>XAI Demo</span>
@@ -45,4 +46,13 @@ import { Component } from '@angular/core';
     `,
   ],
 })
-export class ShellComponent {}
+export class ShellComponent {
+  onMenuClicked(sidenav: MatSidenav) {
+    sidenav.toggle();
+    this.triggerWindowChangeForCharts();
+  }
+
+  triggerWindowChangeForCharts() {
+    window.dispatchEvent(new Event('resize'));
+  }
+}
