@@ -9,4 +9,5 @@ export interface LimeResponse {
 export interface FeatureValue {
   feature: string;
   value: number;
+  class: number;
 }
