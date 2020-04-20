@@ -22,14 +22,14 @@ import { Component } from '@angular/core';
         Feature Importance
       </a>
     </nav>
-    <div>
+    <div style="height: calc(100% - 49px)">
       <router-outlet></router-outlet>
     </div> `,
   styles: [
     `
       :host {
-        display: grid;
-        grid-template-rows: 48px 1fr;
+        display: flex;
+        flex-direction: column;
         height: 100%;
       }
     `,
