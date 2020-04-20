@@ -3,13 +3,15 @@ import { GlobalService } from './global.service';
 
 @Component({
   selector: 'xai-global-feature-info',
-  template: `<ag-grid-angular
-    style="width: 100%; height: 100%"
-    class="ag-theme-alpine"
-    [rowData]="global$ | async"
-    [columnDefs]="columnDefs"
-    (firstDataRendered)="onFirstDataRendered($event)"
-  ></ag-grid-angular>`,
+  template: `
+    <ag-grid-angular
+      style="height: 100%"
+      class="ag-theme-alpine"
+      [rowData]="global$ | async"
+      [columnDefs]="columnDefs"
+      (gridSizeChanged)="onGridSizeChanged($event)"
+    ></ag-grid-angular>
+  `,
 })
 export class GlobalFeatureInfoComponent {
   global$ = this.globalService.globalInfo$;
@@ -23,7 +25,7 @@ export class GlobalFeatureInfoComponent {
 
   constructor(private globalService: GlobalService) {}
 
-  onFirstDataRendered(params: any) {
+  onGridSizeChanged(params: any) {
     params.api.sizeColumnsToFit();
   }
 }
