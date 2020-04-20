@@ -7,19 +7,17 @@ import {
   filter,
   map,
   shareReplay,
-  scan,
 } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { createChartResult } from './single-chart-result';
 import { LimeResponse } from './lime-response';
 import { environment } from 'src/environments/environment';
-import { Observable, forkJoin } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LimeService {
-  private url = (id: string) => `${environment.baseUrl}api/lime/${id}`;
+  private url = (id: number) => `${environment.baseUrl}api/lime/${id}`;
 
   // Oh dear! Will probably use ngrx so cba
   // with a proper scan implementation

@@ -26,6 +26,7 @@ import { GlobalComponent } from './global.component';
 import { GlobalFeatureInfoComponent } from './global-feature-info.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { GlobalFeatureImportanceComponent } from './global-feature-importance.component';
+import { DataGridSelectedDirective } from './data-grid-selected.directive';
 
 const routes: Routes = [
   {
@@ -67,6 +68,7 @@ const routes: Routes = [
     GlobalComponent,
     GlobalFeatureInfoComponent,
     GlobalFeatureImportanceComponent,
+    DataGridSelectedDirective,
   ],
   imports: [
     CommonModule,

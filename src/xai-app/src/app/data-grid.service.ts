@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { DataService } from './data.service';
 import { map } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
+import { AgGridEvent } from 'ag-grid-community';
 
 @Injectable({ providedIn: 'root' })
 export class DataGridService {
@@ -12,13 +13,13 @@ export class DataGridService {
     }))
   );
 
-  private selectedRowId = new BehaviorSubject<string>('');
+  private selectedRowId = new BehaviorSubject<number>(null);
   selectedRowId$ = this.selectedRowId.asObservable();
 
   constructor(private dataService: DataService) {}
 
-  rowSelected(event: any) {
-    this.selectedRowId.next(event.api.getSelectedNodes()[0]['id']);
+  rowSelected(event: AgGridEvent) {
+    this.selectedRowId.next(+event.api.getSelectedNodes()[0]['id']);
   }
 
   private featureNameToColumnDef(featureName: string) {
