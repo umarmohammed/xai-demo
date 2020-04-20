@@ -7,7 +7,7 @@ import { AgGridEvent } from 'ag-grid-community';
   template: `
     <ag-grid-angular
       style="width: 100%; height: 100%;"
-      class="ag-theme-alpine"
+      class="ag-theme-alpine lime-feature-values"
       [rowData]="featureValues"
       [columnDefs]="columnDefs"
       (gridSizeChanged)="onGridSizeChanged($event)"
@@ -26,6 +26,6 @@ export class LimeFeatureValuesComponent {
   };
 
   onGridSizeChanged(params: AgGridEvent) {
-    params.api.sizeColumnsToFit();
+    params.columnApi.autoSizeAllColumns();
   }
 }
