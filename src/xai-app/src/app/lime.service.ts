@@ -24,7 +24,7 @@ export class LimeService {
   cachedCalls = {};
 
   results$ = this.gridService.selectedRowId$.pipe(
-    filter((id) => !!id),
+    filter((id) => id !== null && id !== undefined),
     withLatestFrom(this.modelService.model$),
     switchMap(([id, model]) => {
       if (!this.cachedCalls[id]) {

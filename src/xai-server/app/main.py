@@ -52,7 +52,7 @@ def getFeatureValues(dataPoint, exp, expMap):
     features = getFeatures(exp)
     for i in range(len(features)):
         feature_values.append(
-            {"feature": features[i], "value": dataPoint[expMap[i][0]]})
+            {"feature": features[i], "value": dataPoint[expMap[i][0]], "class": 1 if expMap[i][1] > 0 else 0})
     return feature_values
 
 

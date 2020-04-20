@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { FeatureValue } from './lime-response';
+import { AgGridEvent } from 'ag-grid-community';
 
 @Component({
   selector: 'xai-lime-feature-values',
@@ -10,6 +11,7 @@ import { FeatureValue } from './lime-response';
       [rowData]="featureValues"
       [columnDefs]="columnDefs"
       (gridSizeChanged)="onGridSizeChanged($event)"
+      [rowClassRules]="rowClassRules"
     ></ag-grid-angular>
   `,
 })
@@ -18,7 +20,12 @@ export class LimeFeatureValuesComponent {
 
   columnDefs = [{ field: 'feature' }, { field: 'value' }];
 
-  onGridSizeChanged(params: any) {
+  rowClassRules = {
+    positive: (params) => this.featureValues[params.rowIndex].class === 1,
+    negative: (params) => this.featureValues[params.rowIndex].class === 0,
+  };
+
+  onGridSizeChanged(params: AgGridEvent) {
     params.api.sizeColumnsToFit();
   }
 }
