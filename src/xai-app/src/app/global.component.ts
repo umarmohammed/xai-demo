@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { GlobalService } from './global.service';
 
 @Component({
   selector: 'xai-global',
@@ -17,8 +16,8 @@ import { GlobalService } from './global.service';
         mat-tab-link
         routerLink="feature-importance"
         routerLinkActive
-        #rla="routerLinkActive"
-        [active]="rla.isActive"
+        #rla1="routerLinkActive"
+        [active]="rla1.isActive"
       >
         Feature Importance
       </a>
