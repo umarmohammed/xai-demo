@@ -22,6 +22,9 @@ export class DataGridService {
   private selectedRowId = new BehaviorSubject<number>(null);
   selectedRowId$ = this.selectedRowId.asObservable();
 
+  private highlightSubject = new BehaviorSubject<boolean>(false);
+  highlight$ = this.highlightSubject.asObservable().pipe(tap(console.log));
+
   constructor(private dataService: DataService) {}
 
   startLoading() {
@@ -30,6 +33,10 @@ export class DataGridService {
 
   rowSelected(event: AgGridEvent) {
     this.selectedRowId.next(+event.api.getSelectedNodes()[0]['id']);
+  }
+
+  toggleHighlight(value: boolean) {
+    this.highlightSubject.next(value);
   }
 
   private featureNameToColumnDef(featureName: string) {

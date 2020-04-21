@@ -20,6 +20,7 @@ export class LimeFeatureValuesComponent {
 
   columnDefs = [{ field: 'feature' }, { field: 'value' }];
 
+  // todo the class is part of params
   rowClassRules = {
     positive: (params) => this.featureValues[params.rowIndex].class === 1,
     negative: (params) => this.featureValues[params.rowIndex].class === 0,
