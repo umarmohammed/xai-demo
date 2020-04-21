@@ -27,7 +27,10 @@ export class GlobalService {
     tap(() => this.globalImportanceLoadingSubject.next(true)),
     switchMap((model) => this.http.post<any>(this.importanceUrl, model)),
     filter((res) => res && res.data[0]),
-    map((res) => res.data[0]),
+    map((res) => ({
+      x: this.reverse(res.data[0].x),
+      y: this.reverse(res.data[0].y),
+    })),
     map((data) =>
       data.x.map((value: any, i: number) => ({ value, name: data.y[i] }))
     ),
@@ -36,4 +39,8 @@ export class GlobalService {
   );
 
   constructor(private modelService: ModelService, private http: HttpClient) {}
+
+  private reverse(arr: any[]) {
+    return arr.slice(0).reverse();
+  }
 }
