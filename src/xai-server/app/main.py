@@ -7,18 +7,20 @@ app = Flask(__name__)
 CORS(app)
 
 
-def dataPointToDictionary(dataPoint, feature_names):
+def dataPointToDictionary(dataPoint, feature_names, predicted):
     dpDict = {}
     for i in range(len(feature_names)):
         dpDict[feature_names[i]] = dataPoint[i]
+        dpDict["predicted"] = predicted
 
     return dpDict
 
 
-def trainToDictArray(train, feature_names):
+def testToDictArray(test, feature_names, predicted):
     dictArray = []
-    for dataPoint in train:
-        dictArray.append(dataPointToDictionary(dataPoint, feature_names))
+    for i in range(len(test)):
+        dictArray.append(dataPointToDictionary(
+            test[i], feature_names, predicted[i]))
     return dictArray
 
 
@@ -26,10 +28,12 @@ def trainToDictArray(train, feature_names):
 def upload_model():
     # this would usually persist
     file = request.files['file']
-    _, _, _, _, _, _, test_display, feature_names_display, _ = load(
+    model, _, test, _, _, _, test_display, feature_names_display, _ = load(
         file.stream)
 
-    return jsonify(dict(items=trainToDictArray(test_display.values.tolist(), feature_names_display), featureNames=feature_names_display))
+    predicted = model.predict(test)
+
+    return jsonify(dict(items=testToDictArray(test_display.values.tolist(), feature_names_display, predicted.tolist()), featureNames=feature_names_display))
 
 
 def getPredictProbabilities(probArray, class_names):
