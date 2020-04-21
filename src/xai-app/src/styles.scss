@@ -31,3 +31,12 @@ body {
     border-bottom: none;
   }
 }
+
+.mat-progress-spinner.spinner {
+  display: none;
+  margin: auto;
+
+  &.show {
+    display: block;
+  }
+}
