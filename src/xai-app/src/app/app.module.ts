@@ -29,6 +29,7 @@ import { GlobalFeatureImportanceComponent } from './global-feature-importance.co
 import { DataGridSelectedDirective } from './data-grid-selected.directive';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { DataGridRowVisibleDirective } from './data-grid-row-visible.directive';
 
 const routes: Routes = [
   {
@@ -71,6 +72,7 @@ const routes: Routes = [
     GlobalFeatureInfoComponent,
     GlobalFeatureImportanceComponent,
     DataGridSelectedDirective,
+    DataGridRowVisibleDirective,
   ],
   imports: [
     CommonModule,

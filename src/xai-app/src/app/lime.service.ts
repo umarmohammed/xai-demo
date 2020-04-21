@@ -27,12 +27,10 @@ export class LimeService {
     this.gridService.selectedRowId$,
     this.loadingSubject,
   ]).pipe(
-    tap(console.log),
     map(
       ([selectedRowId, loading]) =>
         selectedRowId !== null && selectedRowId !== undefined && loading
-    ),
-    tap(console.log)
+    )
   );
 
   // Oh dear! Will probably use ngrx so cba
