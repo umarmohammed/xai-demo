@@ -27,6 +27,7 @@ import { GlobalFeatureInfoComponent } from './global-feature-info.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { GlobalFeatureImportanceComponent } from './global-feature-importance.component';
 import { DataGridSelectedDirective } from './data-grid-selected.directive';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const routes: Routes = [
   {
@@ -84,6 +85,7 @@ const routes: Routes = [
     MatIconModule,
     MatListModule,
     MatTabsModule,
+    MatProgressSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
