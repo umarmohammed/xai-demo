@@ -30,6 +30,7 @@ import { DataGridSelectedDirective } from './data-grid-selected.directive';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DataGridRowVisibleDirective } from './data-grid-row-visible.directive';
+import { GlobalFeatureShapingComponent } from './global-feature-shaping.component';
 
 const routes: Routes = [
   {
@@ -45,6 +46,10 @@ const routes: Routes = [
           {
             path: 'feature-importance',
             component: GlobalFeatureImportanceComponent,
+          },
+          {
+            path: 'feature-shaping',
+            component: GlobalFeatureShapingComponent,
           },
           { path: '', redirectTo: 'feature-info', pathMatch: 'full' },
         ],
@@ -71,6 +76,7 @@ const routes: Routes = [
     GlobalComponent,
     GlobalFeatureInfoComponent,
     GlobalFeatureImportanceComponent,
+    GlobalFeatureShapingComponent,
     DataGridSelectedDirective,
     DataGridRowVisibleDirective,
   ],

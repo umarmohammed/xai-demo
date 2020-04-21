@@ -21,6 +21,15 @@ import { Component } from '@angular/core';
       >
         Feature Importance
       </a>
+      <a
+        mat-tab-link
+        routerLink="feature-shaping"
+        routerLinkActive
+        #rla2="routerLinkActive"
+        [active]="rla2.isActive"
+      >
+        Feature Shaping
+      </a>
     </nav>
     <div style="height: calc(100% - 49px)">
       <router-outlet></router-outlet>
