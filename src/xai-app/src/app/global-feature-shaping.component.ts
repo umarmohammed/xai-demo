@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { GlobalFeatureShapingService } from './global-feature-shaping.service';
 import { curveStep } from 'd3-shape';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'xai-global-feature-shaping',
@@ -8,7 +9,16 @@ import { curveStep } from 'd3-shape';
     *ngIf="globalFeatureShapingResponse$ | async as response"
     style="height:100%; width: 100%;display: flex; flex-direction: column; align-items: center"
   >
-    <h3>{{ response.layout.title.text }}</h3>
+    <mat-form-field>
+      <mat-select
+        [value]="selectedFeature$ | async"
+        (selectionChange)="onSelectionChange($event)"
+      >
+        <mat-option *ngFor="let feature of features$ | async" [value]="feature">
+          {{ feature }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
     <div
       style="flex: 1; width:100%"
       *ngIf="featureShapingLine$ | async as featureShapingLine"
@@ -17,7 +27,6 @@ import { curveStep } from 'd3-shape';
         [results]="featureShapingLine.results"
         [xAxis]="true"
         [yAxis]="true"
-        [autoscale]="true"
         [yScaleMin]="featureShapingLine.yScaleMin"
         [yScaleMax]="featureShapingLine.yScaleMax"
         [yAxisLabel]="featureShapingLine.yAxisLabel"
@@ -49,6 +58,8 @@ export class GlobalFeatureShapingComponent {
     .globalFeatureShapingResponse$;
   featureShapingLine$ = this.featureShapingService.featureShapingLine$;
   featureShapingBar$ = this.featureShapingService.featureShapingBar$;
+  features$ = this.featureShapingService.features$;
+  selectedFeature$ = this.featureShapingService.selectedFeature$;
 
   lineColorScheme = { domain: ['#1f77b4'] };
   barColorScheme = {
@@ -56,4 +67,8 @@ export class GlobalFeatureShapingComponent {
   };
 
   constructor(private featureShapingService: GlobalFeatureShapingService) {}
+
+  onSelectionChange(selectionChange: MatSelectChange) {
+    this.featureShapingService.selectFeature(selectionChange.value);
+  }
 }

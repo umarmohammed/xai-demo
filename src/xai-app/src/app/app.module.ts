@@ -31,6 +31,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DataGridRowVisibleDirective } from './data-grid-row-visible.directive';
 import { GlobalFeatureShapingComponent } from './global-feature-shaping.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 const routes: Routes = [
   {
@@ -96,6 +98,8 @@ const routes: Routes = [
     MatTabsModule,
     MatProgressSpinnerModule,
     MatSlideToggleModule,
+    MatFormFieldModule,
+    MatSelectModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
