@@ -51,12 +51,28 @@ def getFeatures(exp):
     return features
 
 
+def featureIsBoolenEq1(feature):
+    return "=1" in feature
+
+
+def featureIsBoolenEq0(feature):
+    return "=0" in feature
+
+
+def getFeatureValue(feature, value):
+    if featureIsBoolenEq1(feature):
+        return bool(value)
+    elif featureIsBoolenEq0(feature):
+        return not bool(value)
+    else: 
+        return value
+
 def getFeatureValues(dataPoint, exp, expMap):
     feature_values = []
     features = getFeatures(exp)
     for i in range(len(features)):
         feature_values.append(
-            {"feature": features[i], "value": dataPoint[expMap[i][0]], "class": 1 if expMap[i][1] > 0 else 0})
+            {"feature": features[i], "value": getFeatureValue(features[i], dataPoint[expMap[i][0]]), "class": 1 if expMap[i][1] > 0 else 0})
     return feature_values
 
 
@@ -72,7 +88,6 @@ def explain(idx, model, train, test, feature_names, class_names, categorical_fea
     probArray = model.predict_proba(
         test.iloc[idx].values.reshape(1, -1)).flatten().tolist()
 
-    print(class_names)
     return dict(exp=exp.as_list(), predictProbabilities=getPredictProbabilities(probArray, class_names), featureValues=getFeatureValues(test.iloc[idx], exp.as_list(), exp.as_map()[1]))
 
 
