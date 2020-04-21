@@ -23,7 +23,7 @@ export class DataGridService {
   selectedRowId$ = this.selectedRowId.asObservable();
 
   private highlightSubject = new BehaviorSubject<boolean>(false);
-  highlight$ = this.highlightSubject.asObservable().pipe(tap(console.log));
+  highlight$ = this.highlightSubject.asObservable();
 
   constructor(private dataService: DataService) {}
 

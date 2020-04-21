@@ -28,6 +28,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
         (gridSizeChanged)="onGridSizeChanged($event)"
         [xaiSelected]="selectedRowId$ | async"
         [rowClassRules]="rowClassRules"
+        [xaiRowVisible]="selectedRowId$ | async"
       >
       </ag-grid-angular>
     </div>
