@@ -1,13 +1,39 @@
 import { Injectable } from '@angular/core';
-import { foo } from './foo';
-import { of } from 'rxjs';
-import { FeatureShapingData } from './feature-shaping-response';
-import { map, shareReplay } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
+import {
+  FeatureShapingData,
+  FeatureShapingResponse,
+} from './feature-shaping-response';
+import { map, shareReplay, withLatestFrom, switchMap } from 'rxjs/operators';
 import { zip } from './array-utils';
+import { environment } from 'src/environments/environment';
+import { GlobalService } from './global.service';
+import { HttpClient } from '@angular/common/http';
+import { ModelService } from './model.service';
 
 @Injectable({ providedIn: 'root' })
 export class GlobalFeatureShapingService {
-  globalFeatureShapingResponse$ = of(foo).pipe(shareReplay());
+  private url = (feature: string) =>
+    `${environment.baseUrl}api/global/feature-shaping/${feature}`;
+
+  features$ = this.globalService.globalInfo$.pipe(
+    map((info: any[]) => info.map((i) => i.Name))
+  );
+
+  private selectedFeatureSubject = new BehaviorSubject<string>(null);
+
+  selectedFeature$ = this.selectedFeatureSubject.pipe(
+    withLatestFrom(this.features$),
+    map(([selectedFeature, features]) => selectedFeature || features[0])
+  );
+
+  globalFeatureShapingResponse$ = this.selectedFeature$.pipe(
+    withLatestFrom(this.modelService.model$),
+    switchMap(([feature, model]) =>
+      this.http.post<FeatureShapingResponse>(this.url(feature), model)
+    ),
+    shareReplay()
+  );
 
   featureShapingLine$ = this.globalFeatureShapingResponse$.pipe(
     map((reponse) => ({
@@ -24,6 +50,16 @@ export class GlobalFeatureShapingService {
       yAxisLabel: response.layout.yaxis2.title.text,
     }))
   );
+
+  constructor(
+    private globalService: GlobalService,
+    private http: HttpClient,
+    private modelService: ModelService
+  ) {}
+
+  selectFeature(value: string) {
+    this.selectedFeatureSubject.next(value);
+  }
 
   private featureShapingDataToNgxBarChart(data: FeatureShapingData[]) {
     const barData = data.find(this.isBarChart);

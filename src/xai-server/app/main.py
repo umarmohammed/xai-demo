@@ -64,8 +64,9 @@ def getFeatureValue(feature, value):
         return bool(value)
     elif featureIsBoolenEq0(feature):
         return not bool(value)
-    else: 
+    else:
         return value
+
 
 def getFeatureValues(dataPoint, exp, expMap):
     feature_values = []
@@ -118,3 +119,20 @@ def globalImportance():
     model = load(file.stream)[-1]
     exp = model.explain_global()
     return exp.visualize().to_json()
+
+
+def getFid(exp, feature):
+    if feature:
+        return exp.selector.Name.tolist().index(feature)
+    else:
+        return 0
+
+
+@app.route("/api/global/feature-shaping/<feature>", methods=["POST"])
+def featureShaping(feature):
+    file = request.files['file']
+    model = load(file.stream)[-1]
+    exp = model.explain_global()
+
+    fid = getFid(exp, feature)
+    return exp.visualize(fid).to_json()
