@@ -5,33 +5,55 @@ import { curveStep } from 'd3-shape';
 @Component({
   selector: 'xai-global-feature-shaping',
   template: `<div
-    *ngIf="featureShaping$ | async as featureShaping"
+    *ngIf="globalFeatureShapingResponse$ | async as response"
     style="height:100%; width: 100%;display: flex; flex-direction: column; align-items: center"
   >
-    <h3>{{ featureShaping.title }}</h3>
-    <div style="flex: 1; width:100%">
+    <h3>{{ response.layout.title.text }}</h3>
+    <div
+      style="flex: 1; width:100%"
+      *ngIf="featureShapingLine$ | async as featureShapingLine"
+    >
       <ngx-charts-line-chart
-        [results]="featureShaping.results"
+        [results]="featureShapingLine.results"
         [xAxis]="true"
         [yAxis]="true"
         [autoscale]="true"
-        [yScaleMin]="featureShaping.yScaleMin"
-        [yScaleMax]="featureShaping.yScaleMax"
-        [yAxisLabel]="featureShaping.yAxisLabel"
+        [yScaleMin]="featureShapingLine.yScaleMin"
+        [yScaleMax]="featureShapingLine.yScaleMax"
+        [yAxisLabel]="featureShapingLine.yAxisLabel"
         [showYAxisLabel]="true"
         [curve]="curveStep"
-        [scheme]="colorScheme"
+        [scheme]="lineColorScheme"
       >
       </ngx-charts-line-chart>
+    </div>
+    <div
+      style="flex: 1; width: 100%"
+      *ngIf="featureShapingBar$ | async as featureShapingBar"
+    >
+      <ngx-charts-bar-vertical
+        [scheme]="barColorScheme"
+        [results]="featureShapingBar.results"
+        [showYAxisLabel]="true"
+        [xAxis]="true"
+        [yAxis]="true"
+        [yAxisLabel]="featureShapingBar.yAxisLabel"
+      >
+      </ngx-charts-bar-vertical>
     </div>
   </div>`,
 })
 export class GlobalFeatureShapingComponent {
   curveStep = curveStep;
+  globalFeatureShapingResponse$ = this.featureShapingService
+    .globalFeatureShapingResponse$;
+  featureShapingLine$ = this.featureShapingService.featureShapingLine$;
+  featureShapingBar$ = this.featureShapingService.featureShapingBar$;
 
-  featureShaping$ = this.featureShapingService.featureShaping$;
-
-  colorScheme = { domain: ['#1f77b4'] };
+  lineColorScheme = { domain: ['#1f77b4'] };
+  barColorScheme = {
+    domain: ['#ff7f0e'],
+  };
 
   constructor(private featureShapingService: GlobalFeatureShapingService) {}
 }
