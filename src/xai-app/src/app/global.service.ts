@@ -16,14 +16,14 @@ export class GlobalService {
   private globalImportanceLoadingSubject = new BehaviorSubject<boolean>(false);
   globalImportanceLoading$ = this.globalImportanceLoadingSubject.asObservable();
 
-  globalInfo$ = this.modelService.model$.pipe(
+  globalInfo$ = this.modelService.tabularModel$.pipe(
     tap(() => this.globalInfoLoadingSubject.next(true)),
     switchMap((model) => this.http.post(this.infoUrl, model)),
     shareReplay(),
     tap(() => this.globalInfoLoadingSubject.next(false))
   );
 
-  globalImportance$ = this.modelService.model$.pipe(
+  globalImportance$ = this.modelService.tabularModel$.pipe(
     tap(() => this.globalImportanceLoadingSubject.next(true)),
     switchMap((model) => this.http.post<any>(this.importanceUrl, model)),
     filter((res) => res && res.data[0]),

@@ -44,7 +44,7 @@ export class GlobalFeatureShapingService {
 
   globalFeatureShapingResponse$ = this.selectedFeature$.pipe(
     tap(() => this.loadingSubject.next(true)),
-    withLatestFrom(this.modelService.model$),
+    withLatestFrom(this.modelService.tabularModel$),
     switchMap(([feature, model]) => {
       if (!this.cachedCalls[feature]) {
         this.cachedCalls[feature] = this.http
