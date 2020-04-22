@@ -14,12 +14,19 @@ import { createChartResult } from './single-chart-result';
 import { LimeResponse } from './lime-response';
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject, combineLatest } from 'rxjs';
+import { ModelType } from './model-data';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LimeService {
-  private url = (id: number) => `${environment.baseUrl}api/lime/${id}`;
+  private limeTabularUrl = (id: number) =>
+    `${environment.baseUrl}api/lime/${id}`;
+  private limeTextUrl = `${environment.baseUrl}api/lime-text`;
+  private limeUrl = (id: number, modelType: ModelType) =>
+    modelType === ModelType.Tabular
+      ? this.limeTabularUrl(id)
+      : this.limeTextUrl;
 
   private loadingSubject = new BehaviorSubject<boolean>(false);
 
@@ -39,14 +46,22 @@ export class LimeService {
 
   results$ = this.gridService.selectedRowId$.pipe(
     filter((id) => id !== null && id !== undefined),
-    withLatestFrom(this.modelService.tabularModel$),
-    switchMap(([id, model]) => {
+    withLatestFrom(this.modelService.model$, this.gridService.grid$),
+    switchMap(([id, model, grid]) => {
       if (!this.cachedCalls[id]) {
         this.loadingSubject.next(true);
+
+        const uploadModel =
+          model.modelType === ModelType.Tabular
+            ? model.formData
+            : this.createTextUploadModel(model.formData, grid.rowData[id]);
         this.cachedCalls[id] = this.http
-          .post<LimeResponse>(this.url(id), model)
+          .post<LimeResponse>(this.limeUrl(id, model.modelType), uploadModel)
           .pipe(
-            map((res) => ({ ...res, exp: res.exp.map(createChartResult) })),
+            map((res) => ({
+              ...res,
+              exp: res.exp.map(createChartResult),
+            })),
             shareReplay()
           );
       }
@@ -61,4 +76,9 @@ export class LimeService {
     private modelService: ModelService,
     private http: HttpClient
   ) {}
+
+  private createTextUploadModel(model: FormData, rowData: any) {
+    model.set('data', rowData.value);
+    return model;
+  }
 }

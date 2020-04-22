@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from joblib import load
 from lime.lime_tabular import LimeTabularExplainer
+from lime.lime_text import LimeTextExplainer
 
 app = Flask(__name__)
 CORS(app)
@@ -100,6 +101,24 @@ def lime(id):
         file.stream)
 
     return jsonify(explain(int(id), model, train, test, feature_names, class_names, categorical_features))
+
+
+def limeTextExplain(data, model, class_names):
+    explainer = LimeTextExplainer(class_names=class_names)
+    exp = explainer.explain_instance(
+        data, model.predict_proba, num_features=6)
+
+    probArray = model.predict_proba([data])
+
+    return dict(exp=exp.as_list(), predictProbabilities=getPredictProbabilities([probArray[0][0], probArray[0][1]], class_names))
+
+
+@app.route("/api/lime-text", methods=["Post"])
+def limeText():
+    file = request.files['file']
+    (model, class_names) = load(file.stream)
+    dataPoint = request.form['data']
+    return limeTextExplain(dataPoint, model, class_names)
 
 
 @app.route("/api/global/feature-info", methods=["Post"])

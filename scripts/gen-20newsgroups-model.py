@@ -23,10 +23,12 @@ def build_model():
     vectorizer = sklearn.feature_extraction.text.TfidfVectorizer(
         lowercase=False)
     train_vectors = vectorizer.fit_transform(newsgroups_train.data)
-    rf = sklearn.ensemble.RandomForestClassifier(n_estimators=100)
+    rf = sklearn.ensemble.RandomForestClassifier(n_estimators=20)
     rf.fit(train_vectors, newsgroups_train.target)
+    c = make_pipeline(vectorizer, rf)
+
     return {"data": json.dumps(data_to_dict_array(
-        data, target, newsgroups_train.target_names)), "model": (rf, class_names)}
+        data, target, newsgroups_train.target_names)), "model": (c, class_names)}
 
 
 if __name__ == "__main__":
