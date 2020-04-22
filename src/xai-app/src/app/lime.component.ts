@@ -1,6 +1,5 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { LimeService } from './lime.service';
-import { SingleChartResult } from './single-chart-result';
 
 @Component({
   selector: 'xai-lime',
