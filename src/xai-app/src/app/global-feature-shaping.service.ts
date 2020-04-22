@@ -23,7 +23,9 @@ export class GlobalFeatureShapingService {
     `${environment.baseUrl}api/global/feature-shaping/${feature}`;
 
   features$ = this.globalService.globalInfo$.pipe(
-    map((info: any[]) => info.map((i) => i.Name))
+    map((info: any[]) =>
+      info.map((i) => i.Name).filter((name: string) => !name.includes('_'))
+    )
   );
 
   private loadingSubject = new BehaviorSubject<boolean>(false);
