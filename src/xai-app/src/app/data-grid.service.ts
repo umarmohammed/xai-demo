@@ -13,7 +13,12 @@ export class DataGridService {
   // and just expose that service from here to the component
   grid$ = this.dataService.data$.pipe(
     tap(() => this.loadingSubject.next(false)),
-    tap(() => this.selectedRowId.next(0)),
+    tap(() =>
+      this.selectedRowId.value === null ||
+      this.selectedRowId.value === undefined
+        ? this.selectedRowId.next(0)
+        : 0
+    ),
     map((data) => ({
       rowData: data.items,
       columnDefs: data.featureNames.map(this.featureNameToColumnDef),
