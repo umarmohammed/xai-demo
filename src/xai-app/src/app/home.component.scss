@@ -4,3 +4,16 @@
   align-items: center;
   height: 100vh;
 }
+
+.grid-container {
+  display: grid;
+  gap: 10px;
+}
+
+.button-container {
+  display: flex;
+
+  button {
+    margin: auto;
+  }
+}
