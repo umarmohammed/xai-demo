@@ -38,11 +38,11 @@ export class LimeService {
   cachedCalls = {};
 
   results$ = this.gridService.selectedRowId$.pipe(
-    tap(() => this.loadingSubject.next(true)),
     filter((id) => id !== null && id !== undefined),
-    withLatestFrom(this.modelService.model$),
+    withLatestFrom(this.modelService.tabularModel$),
     switchMap(([id, model]) => {
       if (!this.cachedCalls[id]) {
+        this.loadingSubject.next(true);
         this.cachedCalls[id] = this.http
           .post<LimeResponse>(this.url(id), model)
           .pipe(

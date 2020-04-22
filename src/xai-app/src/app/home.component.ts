@@ -17,6 +17,7 @@ import { UploadTextModelComponent } from './upload-text-model.component';
         #fileInput
         type="file"
         (change)="fileUploaded(fileInput.files[0])"
+        accept=".joblib"
       />
     </div>
     <div class="button-container">
@@ -35,14 +36,20 @@ export class HomeComponent {
   ) {}
 
   fileUploaded(file: File) {
-    this.model.loadModel(file);
+    this.model.loadTabularModel(file);
     this.router.navigate(['local']);
   }
 
   openDialog() {
-    this.dialog.open(UploadTextModelComponent, {
+    const dialogRef = this.dialog.open(UploadTextModelComponent, {
       width: '500px',
       autoFocus: false,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.router.navigate(['local']);
+      }
     });
   }
 }
