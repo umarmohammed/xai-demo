@@ -33,6 +33,8 @@ import { DataGridRowVisibleDirective } from './data-grid-row-visible.directive';
 import { GlobalFeatureShapingComponent } from './global-feature-shaping.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
+import { UploadTextModelComponent } from './upload-text-model.component';
 
 const routes: Routes = [
   {
@@ -81,6 +83,7 @@ const routes: Routes = [
     GlobalFeatureShapingComponent,
     DataGridSelectedDirective,
     DataGridRowVisibleDirective,
+    UploadTextModelComponent,
   ],
   imports: [
     CommonModule,
@@ -100,6 +103,7 @@ const routes: Routes = [
     MatSlideToggleModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
