@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import {
   FeatureShapingData,
   FeatureShapingResponse,
@@ -36,13 +36,21 @@ export class GlobalFeatureShapingService {
     map(([selectedFeature, features]) => selectedFeature || features[0])
   );
 
+  // Oh dear! Will probably use ngrx so cba
+  // with a proper scan implementation
+  cachedCalls: { [key: string]: Observable<FeatureShapingResponse> } = {};
+
   globalFeatureShapingResponse$ = this.selectedFeature$.pipe(
     tap(() => this.loadingSubject.next(true)),
     withLatestFrom(this.modelService.model$),
-    switchMap(([feature, model]) =>
-      this.http.post<FeatureShapingResponse>(this.url(feature), model)
-    ),
-    shareReplay(),
+    switchMap(([feature, model]) => {
+      if (!this.cachedCalls[feature]) {
+        this.cachedCalls[feature] = this.http
+          .post<FeatureShapingResponse>(this.url(feature), model)
+          .pipe(shareReplay());
+      }
+      return this.cachedCalls[feature];
+    }),
     tap(() => this.loadingSubject.next(false))
   );
 
