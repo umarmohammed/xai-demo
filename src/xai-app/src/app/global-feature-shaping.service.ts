@@ -4,7 +4,13 @@ import {
   FeatureShapingData,
   FeatureShapingResponse,
 } from './feature-shaping-response';
-import { map, shareReplay, withLatestFrom, switchMap } from 'rxjs/operators';
+import {
+  map,
+  shareReplay,
+  withLatestFrom,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
 import { zip } from './array-utils';
 import { environment } from 'src/environments/environment';
 import { GlobalService } from './global.service';
@@ -20,6 +26,9 @@ export class GlobalFeatureShapingService {
     map((info: any[]) => info.map((i) => i.Name))
   );
 
+  private loadingSubject = new BehaviorSubject<boolean>(false);
+  loading$ = this.loadingSubject.asObservable();
+
   private selectedFeatureSubject = new BehaviorSubject<string>(null);
 
   selectedFeature$ = this.selectedFeatureSubject.pipe(
@@ -28,11 +37,13 @@ export class GlobalFeatureShapingService {
   );
 
   globalFeatureShapingResponse$ = this.selectedFeature$.pipe(
+    tap(() => this.loadingSubject.next(true)),
     withLatestFrom(this.modelService.model$),
     switchMap(([feature, model]) =>
       this.http.post<FeatureShapingResponse>(this.url(feature), model)
     ),
-    shareReplay()
+    shareReplay(),
+    tap(() => this.loadingSubject.next(false))
   );
 
   featureShapingLine$ = this.globalFeatureShapingResponse$.pipe(
