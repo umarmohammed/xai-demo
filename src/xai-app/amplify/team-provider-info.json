@@ -10,6 +10,13 @@
             "StackName": "amplify-xaiapp-dev-110808",
             "StackId": "arn:aws:cloudformation:eu-west-2:350791597025:stack/amplify-xaiapp-dev-110808/d43b9690-87a5-11ea-b654-0ab07291f102",
             "AmplifyAppId": "d28qinskg30t2o"
+        },
+        "categories": {
+            "auth": {
+                "xaiapp694473c6": {
+                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Google\",\"client_id\":\"1086911918168-iv013n690ah6ek4cv2og22gtpmb6irb7.apps.googleusercontent.com\",\"client_secret\":\"cAoe1cPQ8rZEm2sK_Lq2eUxW\"}]"
+                }
+            }
         }
     }
 }
