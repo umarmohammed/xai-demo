@@ -49,12 +49,12 @@
     "usernameAttributes": [
         "email"
     ],
-    "hostedUIDomainName": "xaiapp694473c6-694473c6",
+    "userPoolGroupList": [],
+    "dependsOn": [],
+    "hostedUIDomainName": "xaiapp256668c0-256668c0",
     "authProvidersUserPool": [
         "Google"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:4200/\"],\"LogoutURLs\":[\"http://localhost:4200/\"]}",
-    "userPoolGroupList": [],
-    "dependsOn": []
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:4200/\",\"https://5ea5a504d0df6c0006d8aec4--angry-meitner-ec347c.netlify.app/\"],\"LogoutURLs\":[\"http://localhost:4200/\",\"https://5ea5a504d0df6c0006d8aec4--angry-meitner-ec347c.netlify.app/\"]}"
 }
