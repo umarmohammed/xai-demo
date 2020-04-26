@@ -40,6 +40,7 @@ import { AmplifyService } from '@flowaccount/aws-amplify-angular';
 
 import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ModelLoadedGuard } from './model-loaded.guard';
 
 const routes: Routes = [
   {
@@ -65,7 +66,7 @@ const routes: Routes = [
       },
       { path: '', redirectTo: 'local', pathMatch: 'full' },
     ],
-    canActivateChild: [AuthGuard],
+    canActivateChild: [ModelLoadedGuard],
   },
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
