@@ -41,6 +41,7 @@ import { AmplifyService } from '@flowaccount/aws-amplify-angular';
 import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModelLoadedGuard } from './model-loaded.guard';
+import { SignupComponent } from './signup.component';
 
 const routes: Routes = [
   {
@@ -69,8 +70,9 @@ const routes: Routes = [
     canActivateChild: [ModelLoadedGuard],
   },
   { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: '**', component: HomeComponent },
+  { path: '**', component: HomeComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
@@ -92,6 +94,7 @@ const routes: Routes = [
     DataGridRowVisibleDirective,
     UploadTextModelComponent,
     LoginComponent,
+    SignupComponent,
   ],
   imports: [
     CommonModule,

@@ -19,7 +19,8 @@ import { FormBuilder, Validators } from '@angular/forms';
         </p>
         <button type="submit">Login</button>
       </form>
-    </div>`,
+    </div>
+    <a routerLink="/signup">Sign up</a> `,
   styles: [
     `
       :host {
