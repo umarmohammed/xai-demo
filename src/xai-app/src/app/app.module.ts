@@ -9,7 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home.component';
 import { LocalComponent } from './local.component';
 import { CommonModule } from '@angular/common';
-import { ModelLoadedGuard } from './model-loaded.guard';
+import { AuthGuard } from './auth.guard';
 import { AgGridModule } from 'ag-grid-angular';
 import { DataGridComponent } from './data-grid.component';
 import { LimeComponent } from './lime.component';
@@ -35,6 +35,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { UploadTextModelComponent } from './upload-text-model.component';
+import { LoginComponent } from './login.component';
+import { AmplifyService } from '@flowaccount/aws-amplify-angular';
+
+import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -60,9 +65,10 @@ const routes: Routes = [
       },
       { path: '', redirectTo: 'local', pathMatch: 'full' },
     ],
-    canActivateChild: [ModelLoadedGuard],
+    canActivateChild: [AuthGuard],
   },
-  { path: 'home', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: '**', component: HomeComponent },
 ];
 
@@ -84,9 +90,11 @@ const routes: Routes = [
     DataGridSelectedDirective,
     DataGridRowVisibleDirective,
     UploadTextModelComponent,
+    LoginComponent,
   ],
   imports: [
     CommonModule,
+    AmplifyUIAngularModule,
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule,
@@ -104,8 +112,9 @@ const routes: Routes = [
     MatFormFieldModule,
     MatSelectModule,
     MatDialogModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [AmplifyService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
