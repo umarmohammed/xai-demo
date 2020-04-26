@@ -20,6 +20,7 @@ import { FormBuilder, Validators } from '@angular/forms';
         </mat-form-field>
 
         <button
+          *ngIf="!loading"
           class="submit-button"
           color="primary"
           style="width:100%"
@@ -28,6 +29,9 @@ import { FormBuilder, Validators } from '@angular/forms';
         >
           Sign In
         </button>
+        <div *ngIf="loading" class="spinner-container">
+          <mat-spinner [diameter]="30"></mat-spinner>
+        </div>
       </form>
       <span>Need an account?</span>&nbsp;<a routerLink="/signup">Sign up</a>
     </div> `,
@@ -47,6 +51,16 @@ import { FormBuilder, Validators } from '@angular/forms';
       .submit-button {
         margin: 20px 0px 10px 0px;
       }
+
+      .spinner-container {
+        width: 100%;
+        display: flex;
+      }
+
+      .spinner-container mat-spinner {
+          margin: auto;
+        }
+      }
     `,
   ],
 })
@@ -55,6 +69,8 @@ export class LoginComponent {
     email: ['', Validators.required],
     password: ['', Validators.required],
   });
+
+  loading = false;
 
   constructor(
     private amplify: AmplifyService,
@@ -69,6 +85,7 @@ export class LoginComponent {
   }
 
   onSubmitLogin(value: any) {
+    this.loading = true;
     Auth.signIn(value.email, value.password).then(() =>
       this.router.navigate(['/home'])
     );
