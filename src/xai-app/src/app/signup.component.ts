@@ -6,26 +6,31 @@ import { Auth } from 'aws-amplify';
 @Component({
   selector: 'xai-signup',
   template: ` <div>
-    <p>signup</p>
-
-    <button (click)="successfullySignup = true" *ngIf="!successfullySignup">
-      Confirmation from Email and Code
-    </button>
+    <p>Sign up with a new account</p>
 
     <div class="signup" *ngIf="!successfullySignup">
       <form
         [formGroup]="signupForm"
         (ngSubmit)="onSubmitSignup(signupForm.value)"
       >
-        <p>
-          <label>Email: </label>
-          <input type="email" formControlName="email" />
-        </p>
-        <p>
-          <label>Password: </label>
-          <input type="password" formControlName="password" />
-        </p>
-        <button type="submit">Submit</button>
+        <mat-form-field appearance="outline" style="width:100%">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width:100%">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" />
+        </mat-form-field>
+        <button
+          class="submit-button"
+          color="primary"
+          style="width:100%"
+          mat-flat-button
+          type="submit"
+        >
+          Sign Up
+        </button>
       </form>
     </div>
 
@@ -45,7 +50,9 @@ import { Auth } from 'aws-amplify';
         <button type="submit">Confirm</button>
       </form>
     </div>
-    <a routerLink="/login">login</a>
+    <span>Already have an account?</span>&nbsp;<a routerLink="/login"
+      >Sign in</a
+    >
   </div>`,
   styles: [
     `
@@ -54,6 +61,14 @@ import { Auth } from 'aws-amplify';
         align-items: center;
         justify-items: center;
         height: 100%;
+      }
+
+      .signup {
+        width: 300px;
+      }
+
+      .submit-button {
+        margin: 20px 0px 10px 0px;
       }
     `,
   ],
