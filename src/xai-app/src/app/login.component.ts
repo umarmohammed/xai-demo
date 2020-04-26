@@ -6,21 +6,31 @@ import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'xai-login',
-  template: `<p>login</p>
+  template: `<p>Sign in with your email and password</p>
     <div class="login">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin(loginForm.value)">
-        <p>
-          <label>Email: </label>
-          <input type="email" formControlName="email" />
-        </p>
-        <p>
-          <label>Password: </label>
-          <input type="password" formControlName="password" />
-        </p>
-        <button type="submit">Login</button>
+        <mat-form-field appearance="outline" style="width:100%">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width:100%">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password" />
+        </mat-form-field>
+
+        <button
+          class="submit-button"
+          color="primary"
+          style="width:100%"
+          mat-flat-button
+          type="submit"
+        >
+          Sign In
+        </button>
       </form>
-    </div>
-    <a routerLink="/signup">Sign up</a> `,
+      <span>Need an account?</span>&nbsp;<a routerLink="/signup">Sign up</a>
+    </div> `,
   styles: [
     `
       :host {
@@ -28,6 +38,14 @@ import { FormBuilder, Validators } from '@angular/forms';
         height: 100%;
         justify-content: center;
         align-content: center;
+      }
+
+      .login {
+        width: 300px;
+      }
+
+      .submit-button {
+        margin: 20px 0px 10px 0px;
       }
     `,
   ],

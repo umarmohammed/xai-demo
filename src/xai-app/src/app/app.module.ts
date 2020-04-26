@@ -37,6 +37,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { UploadTextModelComponent } from './upload-text-model.component';
 import { LoginComponent } from './login.component';
 import { AmplifyService } from '@flowaccount/aws-amplify-angular';
+import { MatInputModule } from '@angular/material/input';
 
 import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -117,6 +118,7 @@ const routes: Routes = [
     MatSelectModule,
     MatDialogModule,
     ReactiveFormsModule,
+    MatInputModule,
   ],
   providers: [AmplifyService],
   bootstrap: [AppComponent],
