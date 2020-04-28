@@ -1,3 +1,3 @@
 ## Live Demo
 
-https://aws--angry-meitner-ec347c.netlify.app/
+https://angry-meitner-ec347c.netlify.app/
