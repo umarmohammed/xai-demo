@@ -6,26 +6,35 @@ import { UploadTextModelComponent } from './upload-text-model.component';
 
 @Component({
   selector: 'xai-home',
-  template: `<div class="grid-container">
-    <div class="button-container">
-      <button (click)="fileInput.click()" color="primary" mat-stroked-button>
-        Upload Tabular Model
-      </button>
-      <input
-        hidden
-        type="file"
-        #fileInput
-        type="file"
-        (change)="fileUploaded(fileInput.files[0])"
-        accept=".joblib"
-      />
+  template: `
+    <mat-toolbar>
+      <mat-toolbar-row>
+        <span>XAI Demo</span>
+        <span class="example-spacer"></span>
+        <xai-log-out></xai-log-out>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <div class="grid-container">
+      <div class="button-container">
+        <button (click)="fileInput.click()" color="primary" mat-stroked-button>
+          Upload Tabular Model
+        </button>
+        <input
+          hidden
+          type="file"
+          #fileInput
+          type="file"
+          (change)="fileUploaded(fileInput.files[0])"
+          accept=".joblib"
+        />
+      </div>
+      <div class="button-container">
+        <button (click)="openDialog()" color="primary" mat-stroked-button>
+          Upload Text Model
+        </button>
+      </div>
     </div>
-    <div class="button-container">
-      <button (click)="openDialog()" color="primary" mat-stroked-button>
-        Upload Text Model
-      </button>
-    </div>
-  </div> `,
+  `,
   styleUrls: ['home.component.scss'],
 })
 export class HomeComponent {

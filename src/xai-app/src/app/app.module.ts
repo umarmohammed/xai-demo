@@ -43,6 +43,7 @@ import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ModelLoadedGuard } from './model-loaded.guard';
 import { SignupComponent } from './signup.component';
+import { LogOutButton } from './logout-button.component';
 
 const routes: Routes = [
   {
@@ -96,6 +97,7 @@ const routes: Routes = [
     UploadTextModelComponent,
     LoginComponent,
     SignupComponent,
+    LogOutButton,
   ],
   imports: [
     CommonModule,

@@ -10,6 +10,8 @@ import { MatSidenav } from '@angular/material/sidenav';
           <mat-icon>menu</mat-icon>
         </button>
         <span>XAI Demo</span>
+        <span class="example-spacer"></span>
+        <xai-log-out></xai-log-out>
       </mat-toolbar-row>
     </mat-toolbar>
     <mat-sidenav-container>
