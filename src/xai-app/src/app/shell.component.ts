@@ -9,7 +9,7 @@ import { MatSidenav } from '@angular/material/sidenav';
         <button mat-icon-button (click)="onMenuClicked(sidenav)">
           <mat-icon>menu</mat-icon>
         </button>
-        <span>XAI Demo</span>
+        <a mat-button routerLink="/home">XAI Demo</a>
         <span class="example-spacer"></span>
         <xai-log-out></xai-log-out>
       </mat-toolbar-row>
