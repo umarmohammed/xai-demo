@@ -1,34 +1,26 @@
 import { Component } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
+import { SideNavService } from './side-nav.service';
 
 @Component({
   selector: 'xai-shell',
   template: `
     <mat-toolbar>
       <mat-toolbar-row>
-        <button mat-icon-button (click)="onMenuClicked(sidenav)">
+        <button mat-icon-button (click)="onMenuClicked()">
           <mat-icon>menu</mat-icon>
         </button>
         <a mat-button routerLink="/home">XAI Demo</a>
+        <a mat-button routerLinkActive="active" routerLink="/explain"
+          >Explain</a
+        >
         <span class="example-spacer"></span>
         <xai-log-out></xai-log-out>
       </mat-toolbar-row>
     </mat-toolbar>
-    <mat-sidenav-container>
-      <mat-sidenav #sidenav mode="side" opened>
-        <mat-nav-list>
-          <a mat-list-item routerLink="/local" routerLinkActive="active"
-            >Local</a
-          >
-          <a mat-list-item routerLink="/global" routerLinkActive="active"
-            >Global</a
-          >
-        </mat-nav-list>
-      </mat-sidenav>
-      <mat-sidenav-content>
-        <router-outlet></router-outlet>
-      </mat-sidenav-content>
-    </mat-sidenav-container>
+    <div>
+      <router-outlet></router-outlet>
+    </div>
   `,
   styles: [
     `
@@ -38,19 +30,17 @@ import { MatSidenav } from '@angular/material/sidenav';
         height: 100%;
       }
 
-      .active {
-        background: #f5f5f5;
-      }
-
-      mat-sidenav {
-        width: 200px;
+      a.active {
+        background: hsla(0, 0%, 100%, 0.65);
       }
     `,
   ],
 })
 export class ShellComponent {
-  onMenuClicked(sidenav: MatSidenav) {
-    sidenav.toggle();
+  constructor(private sideNavService: SideNavService) {}
+
+  onMenuClicked() {
+    this.sideNavService.toggle();
     this.triggerWindowChangeForCharts();
   }
 
