@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModelService } from './model.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { UploadTextModelComponent } from './upload-text-model.component';
+import { LimeService } from './lime.service';
 
 @Component({
   selector: 'xai-home',
   template: `
     <mat-toolbar>
       <mat-toolbar-row>
-        <span>XAI Demo</span>
+        <a mat-button routerLink="/home">XAI Demo</a>
         <span class="example-spacer"></span>
         <xai-log-out></xai-log-out>
       </mat-toolbar-row>
@@ -37,12 +38,18 @@ import { UploadTextModelComponent } from './upload-text-model.component';
   `,
   styleUrls: ['home.component.scss'],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   constructor(
     private model: ModelService,
     private router: Router,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private lime: LimeService
   ) {}
+
+  ngOnInit(): void {
+    this.model.clearModel();
+    this.lime.clearCache();
+  }
 
   fileUploaded(file: File) {
     this.model.loadTabularModel(file);

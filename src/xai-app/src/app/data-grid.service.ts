@@ -19,10 +19,13 @@ export class DataGridService {
         ? this.selectedRowId.next(0)
         : 0
     ),
-    map((data) => ({
-      rowData: data.items,
-      columnDefs: data.featureNames.map(this.featureNameToColumnDef),
-    }))
+    map(
+      (data) =>
+        data && {
+          rowData: data.items,
+          columnDefs: data.featureNames.map(this.featureNameToColumnDef),
+        }
+    )
   );
 
   private selectedRowId = new BehaviorSubject<number>(null);

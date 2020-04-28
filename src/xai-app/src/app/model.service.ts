@@ -17,6 +17,10 @@ export class ModelService {
   loadTabularModel = this.loadModel(ModelType.Tabular);
   loadTextModel = this.loadModel(ModelType.Text);
 
+  clearModel() {
+    this.modelSubject.next(null);
+  }
+
   private loadModel(modelType: ModelType) {
     return (file: File) => {
       const formData = this.fileToFormData(file);

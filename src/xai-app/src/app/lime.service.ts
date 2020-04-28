@@ -77,6 +77,10 @@ export class LimeService {
     private http: HttpClient
   ) {}
 
+  clearCache() {
+    this.cachedCalls = {};
+  }
+
   private createTextUploadModel(model: FormData, rowData: any) {
     model.set('data', rowData.value);
     return model;
