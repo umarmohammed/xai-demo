@@ -3,10 +3,16 @@ import { Router } from '@angular/router';
 import { AmplifyService } from '@flowaccount/aws-amplify-angular';
 import { Auth } from 'aws-amplify';
 import { FormBuilder, Validators } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'xai-login',
-  template: `<p>Sign in with your email and password</p>
+  template: `
+    <div *ngIf="error$ | async as error" class="error">
+      {{ error }}
+    </div>
+    <p>Sign in with your email and password</p>
+
     <div class="login">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmitLogin(loginForm.value)">
         <mat-form-field appearance="outline" style="width:100%">
@@ -34,7 +40,8 @@ import { FormBuilder, Validators } from '@angular/forms';
         </div>
       </form>
       <span>Need an account?</span>&nbsp;<a routerLink="/signup">Sign up</a>
-    </div> `,
+    </div>
+  `,
   styles: [
     `
       :host {
@@ -58,8 +65,16 @@ import { FormBuilder, Validators } from '@angular/forms';
       }
 
       .spinner-container mat-spinner {
-          margin: auto;
-        }
+        margin: auto;
+      }
+
+      .error {
+        color: #721c24;
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        padding: 0.75rem 1.25rem;
+        border-radius: 0.25rem;
+        width: 260px;
       }
     `,
   ],
@@ -71,6 +86,8 @@ export class LoginComponent {
   });
 
   loading = false;
+
+  error$ = new BehaviorSubject<string>('');
 
   constructor(
     private amplify: AmplifyService,
@@ -86,8 +103,13 @@ export class LoginComponent {
 
   onSubmitLogin(value: any) {
     this.loading = true;
-    Auth.signIn(value.email, value.password).then(() =>
-      this.router.navigate(['/home'])
+    this.error$.next('');
+    Auth.signIn(value.email, value.password).then(
+      () => this.router.navigate(['/home']),
+      (err) => {
+        this.loading = false;
+        this.error$.next(err.message);
+      }
     );
   }
 }
