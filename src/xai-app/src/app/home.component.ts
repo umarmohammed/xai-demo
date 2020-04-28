@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
 
   fileUploaded(file: File) {
     this.model.loadTabularModel(file);
-    this.router.navigate(['local']);
+    this.router.navigate(['/']);
   }
 
   openDialog() {
@@ -64,7 +64,7 @@ export class HomeComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.router.navigate(['local']);
+        this.router.navigate(['/']);
       }
     });
   }

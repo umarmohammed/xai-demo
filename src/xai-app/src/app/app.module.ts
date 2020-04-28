@@ -44,30 +44,38 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ModelLoadedGuard } from './model-loaded.guard';
 import { SignupComponent } from './signup.component';
 import { LogOutButton } from './logout-button.component';
+import { ExplainabilityComponent } from './explainability.component';
 
 const routes: Routes = [
   {
     path: '',
     component: ShellComponent,
     children: [
-      { path: 'local', component: LocalComponent },
       {
-        path: 'global',
-        component: GlobalComponent,
+        path: 'explain',
+        component: ExplainabilityComponent,
         children: [
-          { path: 'feature-info', component: GlobalFeatureInfoComponent },
+          { path: 'local', component: LocalComponent },
           {
-            path: 'feature-importance',
-            component: GlobalFeatureImportanceComponent,
+            path: 'global',
+            component: GlobalComponent,
+            children: [
+              { path: 'feature-info', component: GlobalFeatureInfoComponent },
+              {
+                path: 'feature-importance',
+                component: GlobalFeatureImportanceComponent,
+              },
+              {
+                path: 'feature-shaping',
+                component: GlobalFeatureShapingComponent,
+              },
+              { path: '', redirectTo: 'feature-info', pathMatch: 'full' },
+            ],
           },
-          {
-            path: 'feature-shaping',
-            component: GlobalFeatureShapingComponent,
-          },
-          { path: '', redirectTo: 'feature-info', pathMatch: 'full' },
+          { path: '', redirectTo: 'local', pathMatch: 'full' },
         ],
       },
-      { path: '', redirectTo: 'local', pathMatch: 'full' },
+      { path: '', redirectTo: 'explain', pathMatch: 'full' },
     ],
     canActivateChild: [ModelLoadedGuard],
   },
@@ -98,6 +106,7 @@ const routes: Routes = [
     LoginComponent,
     SignupComponent,
     LogOutButton,
+    ExplainabilityComponent,
   ],
   imports: [
     CommonModule,
