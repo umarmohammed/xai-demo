@@ -9,7 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home.component';
 import { LocalComponent } from './local.component';
 import { CommonModule } from '@angular/common';
-import { ModelLoadedGuard } from './model-loaded.guard';
+import { AuthGuard } from './auth.guard';
 import { AgGridModule } from 'ag-grid-angular';
 import { DataGridComponent } from './data-grid.component';
 import { LimeComponent } from './lime.component';
@@ -35,6 +35,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { UploadTextModelComponent } from './upload-text-model.component';
+import { LoginComponent } from './login.component';
+import { AmplifyService } from '@flowaccount/aws-amplify-angular';
+import { MatInputModule } from '@angular/material/input';
+
+import { AmplifyUIAngularModule } from '@aws-amplify/ui-angular';
+import { ReactiveFormsModule } from '@angular/forms';
+import { ModelLoadedGuard } from './model-loaded.guard';
+import { SignupComponent } from './signup.component';
+import { LogOutButton } from './logout-button.component';
 
 const routes: Routes = [
   {
@@ -62,8 +71,10 @@ const routes: Routes = [
     ],
     canActivateChild: [ModelLoadedGuard],
   },
-  { path: 'home', component: HomeComponent },
-  { path: '**', component: HomeComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: '**', component: HomeComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
@@ -84,9 +95,13 @@ const routes: Routes = [
     DataGridSelectedDirective,
     DataGridRowVisibleDirective,
     UploadTextModelComponent,
+    LoginComponent,
+    SignupComponent,
+    LogOutButton,
   ],
   imports: [
     CommonModule,
+    AmplifyUIAngularModule,
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule,
@@ -104,8 +119,10 @@ const routes: Routes = [
     MatFormFieldModule,
     MatSelectModule,
     MatDialogModule,
+    ReactiveFormsModule,
+    MatInputModule,
   ],
-  providers: [],
+  providers: [AmplifyService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
