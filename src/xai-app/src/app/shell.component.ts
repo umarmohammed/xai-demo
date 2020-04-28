@@ -11,6 +11,9 @@ import { SideNavService } from './side-nav.service';
           <mat-icon>menu</mat-icon>
         </button>
         <a mat-button routerLink="/home">XAI Demo</a>
+        <a mat-button routerLinkActive="active" routerLink="/fairness"
+          >Fairness</a
+        >
         <a mat-button routerLinkActive="active" routerLink="/explain"
           >Explain</a
         >

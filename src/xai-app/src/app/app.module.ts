@@ -45,6 +45,7 @@ import { ModelLoadedGuard } from './model-loaded.guard';
 import { SignupComponent } from './signup.component';
 import { LogOutButton } from './logout-button.component';
 import { ExplainabilityComponent } from './explainability.component';
+import { FairnessComponent } from './fairness.componen';
 
 const routes: Routes = [
   {
@@ -75,7 +76,8 @@ const routes: Routes = [
           { path: '', redirectTo: 'local', pathMatch: 'full' },
         ],
       },
-      { path: '', redirectTo: 'explain', pathMatch: 'full' },
+      { path: 'fairness', component: FairnessComponent },
+      { path: '', redirectTo: 'fairness', pathMatch: 'full' },
     ],
     canActivateChild: [ModelLoadedGuard],
   },
