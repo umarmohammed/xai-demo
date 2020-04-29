@@ -7,6 +7,7 @@ from sklearn.ensemble import RandomForestClassifier
 from joblib import dump, load
 from interpret.glassbox import ExplainableBoostingClassifier
 
+
 def build_model():
 
     ucihd_attr = [
@@ -65,7 +66,7 @@ def build_model():
     feature_names_display = ucihd_attr
 
     ucihd_ebm = ExplainableBoostingClassifier(
-        n_estimators=16, feature_names=ucihd_2.columns, n_jobs=1)
+        n_estimators=16, feature_names=feature_names, n_jobs=1)
     _ = ucihd_ebm.fit(train, ucihd_y_train)
 
     return (ucihd_rf, train.values, test, feature_names, class_names, caterogical_features, test_display, feature_names_display, ucihd_ebm)

@@ -4,46 +4,54 @@ import xgboost
 import sklearn
 import numpy as np
 from joblib import dump, load
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
+from interpret.glassbox import ExplainableBoostingClassifier
+from sklearn.linear_model import LogisticRegression
 
 
 def build_model():
-    feature_names = ["Age", "Workclass", "fnlwgt", "Education", "Education-Num", "Marital Status",
-                     "Occupation", "Relationship", "Race", "Sex", "Capital Gain", "Capital Loss", "Hours per week", "Country"]
-    data = np.genfromtxt("../datasets/adult.data",
-                         delimiter=', ', dtype=str)
+    data_attr = ["Age", "Workclass", "fnlwgt", "Education", "Education-Num", "Marital Status",
+                 "Occupation", "Relationship", "Race", "Sex", "Capital Gain", "Capital Loss", "Hours per week", "Country", "Label"]
 
-    labels = data[:, 14]
-    le = sklearn.preprocessing.LabelEncoder()
-    le.fit(labels)
-    labels = le.transform(labels)
-    class_names = le.classes_
-    data = data[:, :-1]
-    categorical_features = [1, 3, 5, 6, 7, 8, 9, 13]
+    data = pd.read_csv("../datasets/adult.data", header=None, delimiter=", ", engine="python",
+                       names=data_attr, na_values="?")
 
-    categorical_names = {}
-    for feature in categorical_features:
-        le = sklearn.preprocessing.LabelEncoder()
-        le.fit(data[:, feature])
-        data[:, feature] = le.transform(data[:, feature])
-        categorical_names[feature] = le.classes_
+    categorical_attr = ["Workclass", "Education", "Marital Status",
+                        "Occupation", "Relationship", "Race", "Sex", "Country"]
 
-    data = data.astype(float)
+    for col in categorical_attr:
+        data[col] = data[col].astype("category")
 
-    encoder = sklearn.preprocessing.OneHotEncoder(
-        categorical_features=categorical_features)
+    data = data.dropna()
 
-    np.random.seed(1)
-    train, test, labels_train, _ = sklearn.model_selection.train_test_split(
-        data, labels, train_size=0.80)
+    # TODO use Label Encoder
+    data.loc[data["Label"] == "<=50K", "Label"] = 0
+    data.loc[data["Label"] != 0, "Label"] = 1
 
-    encoder.fit(data)
-    encoded_train = encoder.transform(train)
+    data2 = data.copy()
 
-    gbtree = xgboost.XGBClassifier(n_estimators=300, max_depth=5)
-    gbtree.fit(encoded_train, labels_train)
+    data2 = pd.get_dummies(data2, columns=categorical_attr)
+    data_y = data2.pop("Label")
+    data_y = data_y.astype('int')
+    train, test, data_y_train, _ = train_test_split(
+        data2, data_y.values, test_size=.3, random_state=64)
 
-    return (gbtree, encoder, train, test, feature_names, class_names, categorical_features,
-            categorical_names)
+    # horrible hack to reverse effect of pd.get_dummies
+    _, test_display, _, _ = train_test_split(
+        data, data_y.values, test_size=.3, random_state=64)
+
+    rf = LogisticRegression(solver='lbfgs')
+    rf.fit(train, data_y_train)
+
+    feature_names = data2.columns
+    class_names = ["<=50k", ">50k"]
+    caterogical_features = [
+        i for i, col in enumerate(feature_names) if "_" in col]
+    feature_names_display = data_attr
+
+    return (rf, train.values, test, feature_names, class_names, caterogical_features, test_display, feature_names_display, None)
 
 
 if __name__ == "__main__":

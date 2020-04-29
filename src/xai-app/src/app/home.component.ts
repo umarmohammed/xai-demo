@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { UploadTextModelComponent } from './upload-text-model.component';
 import { LimeService } from './lime.service';
+import { DataGridService } from './data-grid.service';
 
 @Component({
   selector: 'xai-home',
@@ -43,12 +44,15 @@ export class HomeComponent implements OnInit {
     private model: ModelService,
     private router: Router,
     public dialog: MatDialog,
-    private lime: LimeService
+    private lime: LimeService,
+    private gridService: DataGridService
   ) {}
 
   ngOnInit(): void {
+    // HACK!!
     this.model.clearModel();
     this.lime.clearCache();
+    this.gridService.clearSelectedRow();
   }
 
   fileUploaded(file: File) {

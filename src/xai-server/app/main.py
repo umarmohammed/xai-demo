@@ -90,7 +90,7 @@ def explain(idx, model, train, test, feature_names, class_names, categorical_fea
     probArray = model.predict_proba(
         test.iloc[idx].values.reshape(1, -1)).flatten().tolist()
 
-    return dict(exp=exp.as_list(), predictProbabilities=getPredictProbabilities(probArray, class_names), featureValues=getFeatureValues(test.iloc[idx], exp.as_list(), exp.as_map()[1]))
+    return dict(exp=exp.as_list(), predictProbabilities=getPredictProbabilities(probArray, class_names), featureValues=getFeatureValues(test.iloc[idx].values.tolist(), exp.as_list(), exp.as_map()[1]))
 
 
 @app.route("/api/lime/<id>", methods=["Post"])
@@ -100,7 +100,7 @@ def lime(id):
     model, train, test, feature_names, class_names, categorical_features, _, _, _ = load(
         file.stream)
 
-    return jsonify(explain(int(id), model, train, test, feature_names, class_names, categorical_features))
+    return explain(int(id), model, train, test, feature_names, class_names, categorical_features)
 
 
 def limeTextExplain(data, model, class_names):

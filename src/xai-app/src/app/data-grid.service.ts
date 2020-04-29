@@ -40,6 +40,10 @@ export class DataGridService {
     this.loadingSubject.next(true);
   }
 
+  clearSelectedRow() {
+    this.selectedRowId.next(null);
+  }
+
   rowSelected(event: AgGridEvent) {
     this.selectedRowId.next(+event.api.getSelectedNodes()[0]['id']);
   }
