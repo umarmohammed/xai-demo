@@ -16,23 +16,28 @@ import { LimeService } from './lime.service';
       </mat-toolbar-row>
     </mat-toolbar>
     <div class="grid-container">
-      <div class="button-container">
-        <button (click)="fileInput.click()" color="primary" mat-stroked-button>
-          Upload Tabular Model
-        </button>
-        <input
-          hidden
-          type="file"
-          #fileInput
-          type="file"
-          (change)="fileUploaded(fileInput.files[0])"
-          accept=".joblib"
-        />
-      </div>
-      <div class="button-container">
-        <button (click)="openDialog()" color="primary" mat-stroked-button>
-          Upload Text Model
-        </button>
+      <img class="logo" src="/assets/logo.PNG" />
+      <div class="text-container">
+        <h1 class="title">Explainability Demo</h1>
+        <hr class="divider" />
+        <h6 class="sub-title">Upload a model to get started</h6>
+        <div class="button-container">
+          <button
+            (click)="fileInput.click()"
+            color="primary"
+            mat-stroked-button
+          >
+            Upload Model
+          </button>
+          <input
+            hidden
+            type="file"
+            #fileInput
+            type="file"
+            (change)="fileUploaded(fileInput.files[0])"
+            accept=".joblib"
+          />
+        </div>
       </div>
     </div>
   `,

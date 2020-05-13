@@ -17,3 +17,30 @@
     margin: auto;
   }
 }
+
+.title {
+  width: 100%;
+  text-align: center;
+}
+
+.text-container {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.logo {
+  margin: auto;
+}
+
+.sub-title {
+  line-height: 1.7;
+  font-size: 1rem;
+  font-weight: 300;
+  width: 100%;
+  text-align: center;
+}
+
+.divider {
+  width: 100%;
+}
