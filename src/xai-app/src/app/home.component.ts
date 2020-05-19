@@ -19,15 +19,13 @@ import { LimeService } from './lime.service';
       <img class="logo" src="/assets/logo.PNG" />
       <div class="text-container">
         <h1 class="title">Explainability Demo</h1>
-        <hr class="divider" />
-        <h6 class="sub-title">Upload a model to get started</h6>
         <div class="button-container">
           <button
             (click)="fileInput.click()"
             color="primary"
             mat-stroked-button
           >
-            Upload Model
+            Connect
           </button>
           <input
             hidden
